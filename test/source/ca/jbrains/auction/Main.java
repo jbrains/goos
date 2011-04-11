@@ -9,6 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
+import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.MessageListener;
+import org.jivesoftware.smack.XMPPConnection;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smack.packet.Message;
+
 public class Main {
 	public static class MainWindow extends JFrame {
 		private static final long serialVersionUID = -6155423004752976439L;
@@ -50,6 +56,28 @@ public class Main {
 	}
 
 	public static void main(String... args) throws Exception {
-		Main main = new Main();
+		new Main();
+		final XMPPConnection connection = connectTo(args[0], args[1], args[2]);
+		final Chat chat = connection.getChatManager().createChat(
+				auctionId(args[3], connection), new MessageListener() {
+					@Override
+					public void processMessage(Chat chat, Message message) {
+						// Don't do anything yet
+					}
+				});
+		chat.sendMessage(new Message());
+	}
+
+	private static String auctionId(String itemId, XMPPConnection connection) {
+		return String.format("auction-%s@%s/Auction", itemId,
+				connection.getServiceName());
+	}
+
+	private static XMPPConnection connectTo(String hostname, String username,
+			String password) throws XMPPException {
+		final XMPPConnection connection = new XMPPConnection(hostname);
+		connection.connect();
+		connection.login(username, password, "Auction");
+		return connection;
 	}
 }

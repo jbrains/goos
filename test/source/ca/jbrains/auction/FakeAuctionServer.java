@@ -21,7 +21,7 @@ public class FakeAuctionServer {
 
 		@Override
 		public void processMessage(Chat chat, Message message) {
-			throw new UnsupportedOperationException("NYI");
+			messages.add(message);
 		}
 
 		public void receivesAMessage() throws InterruptedException {
