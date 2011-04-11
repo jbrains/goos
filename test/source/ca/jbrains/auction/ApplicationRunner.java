@@ -1,12 +1,16 @@
 package ca.jbrains.auction;
 
-import static ca.jbrains.auction.FakeAuctionServer.*;
+import static ca.jbrains.auction.FakeAuctionServer.XMPP_HOSTNAME;
+
+import javax.swing.SwingUtilities;
+
+import com.objogate.exception.Defect;
 
 public class ApplicationRunner {
 	public static final String SNIPER_ID = "sniper";
 	public static final String SNIPER_PASSWORD = "sniper";
-	private static final String STATUS_JOINING = "joining";
-	private static final String STATUS_LOST = "lost";
+	public static final String STATUS_JOINING = "Joining";
+	public static final String STATUS_LOST = "Lost";
 	private AuctionSniperDriver driver;
 
 	public void startBiddingIn(final FakeAuctionServer auction) {
@@ -23,6 +27,9 @@ public class ApplicationRunner {
 		};
 		thread.setDaemon(true);
 		thread.start();
+
+		makeSureAwtIsLoadedBeforeStartingTheDriverOnOSXToStopDeadlock();
+
 		driver = new AuctionSniperDriver(1000);
 		driver.showsSniperStatus(STATUS_JOINING);
 	}
@@ -35,5 +42,15 @@ public class ApplicationRunner {
 		if (driver != null)
 			driver.dispose();
 	}
-	
+
+	private void makeSureAwtIsLoadedBeforeStartingTheDriverOnOSXToStopDeadlock() {
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				public void run() {
+				}
+			});
+		} catch (Exception e) {
+			throw new RuntimeException("Defect", e);
+		}
+	}
 }
