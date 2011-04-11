@@ -1,7 +1,5 @@
 package ca.jbrains.auction;
 
-import static ca.jbrains.auction.ApplicationRunner.STATUS_JOINING;
-
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +21,10 @@ public class Main {
 	public static class MainWindow extends JFrame {
 		private static final long serialVersionUID = -6155423004752976439L;
 
-		private JLabel sniperStatus = createLabel(STATUS_JOINING);
+		public static final String STATUS_LOST = "Lost";
+		public static final String STATUS_JOINING = "Joining";
+
+		private JLabel sniperStatus = createLabel(MainWindow.STATUS_JOINING);
 
 		public MainWindow() {
 			super("Auction Sniper");
@@ -40,6 +41,10 @@ public class Main {
 			label.setBorder(new LineBorder(Color.BLACK));
 			return label;
 		}
+
+		public void showStatus(String status) {
+			sniperStatus.setText(status);
+		}
 	}
 
 	public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
@@ -48,6 +53,9 @@ public class Main {
 	private static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN
 			+ "@%s/Auction";
 	private MainWindow ui;
+
+	@SuppressWarnings("unused")
+	private Chat dontGcMeBro;
 
 	public Main() throws Exception {
 		startUserInterface();
@@ -63,7 +71,8 @@ public class Main {
 	}
 
 	public static void main(final String... args) throws Exception {
-		new Main();
+		Main main = new Main();
+
 		Map<String, String> arguments = new HashMap<String, String>() {
 			{
 				put("hostname", args[0]);
@@ -73,17 +82,24 @@ public class Main {
 			}
 		};
 
-		final XMPPConnection connection = connectTo(arguments.get("hostname"),
-				arguments.get("username"), arguments.get("password"));
-		
+		main.joinAuction(
+				connectTo(arguments.get("hostname"), arguments.get("username"),
+						arguments.get("password")), arguments.get("itemId"));
+	}
+
+	private void joinAuction(final XMPPConnection connection, String itemId)
+			throws XMPPException {
+
 		final Chat chat = connection.getChatManager().createChat(
-				auctionId(arguments.get("itemId"), connection),
-				new MessageListener() {
+				auctionId(itemId, connection), new MessageListener() {
 					@Override
 					public void processMessage(Chat chat, Message message) {
-						// Don't do anything yet
+						ui.showStatus(MainWindow.STATUS_LOST);
 					}
 				});
+
+		this.dontGcMeBro = chat;
+
 		chat.sendMessage(new Message());
 	}
 
@@ -94,6 +110,7 @@ public class Main {
 
 	private static XMPPConnection connectTo(String hostname, String username,
 			String password) throws XMPPException {
+
 		final XMPPConnection connection = new XMPPConnection(hostname);
 		connection.connect();
 		connection.login(username, password, AUCTION_RESOURCE_NAME);

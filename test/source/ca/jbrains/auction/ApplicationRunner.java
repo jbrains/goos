@@ -1,16 +1,18 @@
 package ca.jbrains.auction;
 
 import static ca.jbrains.auction.FakeAuctionServer.XMPP_HOSTNAME;
+import static ca.jbrains.auction.Main.MainWindow.STATUS_JOINING;
+import static ca.jbrains.auction.Main.MainWindow.STATUS_LOST;
 
 import javax.swing.SwingUtilities;
+
+import ca.jbrains.auction.Main.MainWindow;
 
 import com.objogate.exception.Defect;
 
 public class ApplicationRunner {
 	public static final String SNIPER_ID = "sniper";
 	public static final String SNIPER_PASSWORD = "sniper";
-	public static final String STATUS_JOINING = "Joining";
-	public static final String STATUS_LOST = "Lost";
 	private AuctionSniperDriver driver;
 
 	public void startBiddingIn(final FakeAuctionServer auction) {
