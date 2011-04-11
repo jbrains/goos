@@ -3,6 +3,8 @@ package ca.jbrains.auction;
 import static ca.jbrains.auction.ApplicationRunner.STATUS_JOINING;
 
 import java.awt.Color;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,7 +45,8 @@ public class Main {
 	public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
 	public static final String SNIPER_STATUS_NAME = "sniper status";
 	public static final String ITEM_ID_AS_LOGIN = "auction-%s";
-	private static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN + "@%s/Auction";
+	private static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN
+			+ "@%s/Auction";
 	private MainWindow ui;
 
 	public Main() throws Exception {
@@ -59,11 +62,23 @@ public class Main {
 		});
 	}
 
-	public static void main(String... args) throws Exception {
+	public static void main(final String... args) throws Exception {
 		new Main();
-		final XMPPConnection connection = connectTo(args[0], args[1], args[2]);
+		Map<String, String> arguments = new HashMap<String, String>() {
+			{
+				put("hostname", args[0]);
+				put("username", args[1]);
+				put("password", args[2]);
+				put("itemId", args[3]);
+			}
+		};
+
+		final XMPPConnection connection = connectTo(arguments.get("hostname"),
+				arguments.get("username"), arguments.get("password"));
+		
 		final Chat chat = connection.getChatManager().createChat(
-				auctionId(args[3], connection), new MessageListener() {
+				auctionId(arguments.get("itemId"), connection),
+				new MessageListener() {
 					@Override
 					public void processMessage(Chat chat, Message message) {
 						// Don't do anything yet
