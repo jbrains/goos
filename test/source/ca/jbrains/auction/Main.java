@@ -16,6 +16,8 @@ import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
 public class Main {
+	private static final String AUCTION_RESOURCE_NAME = "Auction";
+
 	public static class MainWindow extends JFrame {
 		private static final long serialVersionUID = -6155423004752976439L;
 
@@ -40,6 +42,8 @@ public class Main {
 
 	public static final String MAIN_WINDOW_NAME = "Auction Sniper Main";
 	public static final String SNIPER_STATUS_NAME = "sniper status";
+	public static final String ITEM_ID_AS_LOGIN = "auction-%s";
+	private static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN + "@%s/Auction";
 	private MainWindow ui;
 
 	public Main() throws Exception {
@@ -69,7 +73,7 @@ public class Main {
 	}
 
 	private static String auctionId(String itemId, XMPPConnection connection) {
-		return String.format("auction-%s@%s/Auction", itemId,
+		return String.format(AUCTION_ID_FORMAT, itemId,
 				connection.getServiceName());
 	}
 
@@ -77,7 +81,7 @@ public class Main {
 			String password) throws XMPPException {
 		final XMPPConnection connection = new XMPPConnection(hostname);
 		connection.connect();
-		connection.login(username, password, "Auction");
+		connection.login(username, password, AUCTION_RESOURCE_NAME);
 		return connection;
 	}
 }
