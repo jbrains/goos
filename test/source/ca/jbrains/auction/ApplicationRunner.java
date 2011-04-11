@@ -6,10 +6,6 @@ import static ca.jbrains.auction.Main.MainWindow.STATUS_LOST;
 
 import javax.swing.SwingUtilities;
 
-import ca.jbrains.auction.Main.MainWindow;
-
-import com.objogate.exception.Defect;
-
 public class ApplicationRunner {
 	public static final String SNIPER_ID = "sniper";
 	public static final String SNIPER_PASSWORD = "sniper";

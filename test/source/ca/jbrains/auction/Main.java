@@ -73,6 +73,7 @@ public class Main {
 	public static void main(final String... args) throws Exception {
 		Main main = new Main();
 
+		@SuppressWarnings("serial")
 		Map<String, String> arguments = new HashMap<String, String>() {
 			{
 				put("hostname", args[0]);
