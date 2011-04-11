@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture
+END
+Gestures.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/Gestures.java
+END
+StaticTracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/StaticTracker.java
+END
+WaitGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/WaitGesture.java
+END
+KeyPressGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/KeyPressGesture.java
+END
+MousePressGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/MousePressGesture.java
+END
+MouseTranslateGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/MouseTranslateGesture.java
+END
+ModifierKeyGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/ModifierKeyGesture.java
+END
+GestureSequence.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/GestureSequence.java
+END
+MouseWheelGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/MouseWheelGesture.java
+END
+MouseMoveAbsoluteGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/MouseMoveAbsoluteGesture.java
+END
+MouseMoveGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/MouseMoveGesture.java
+END
+RepetitionGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/RepetitionGesture.java
+END
+RightAngleMouseMoveGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/RightAngleMouseMoveGesture.java
+END
+TypeTextGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/TypeTextGesture.java
+END
+MouseReleaseGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/MouseReleaseGesture.java
+END
+KeyReleaseGesture.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/KeyReleaseGesture.java
+END
+Tracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/194/trunk/src/core/main/com/objogate/wl/gesture/Tracker.java
+END

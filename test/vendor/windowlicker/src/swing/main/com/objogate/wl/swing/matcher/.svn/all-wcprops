@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher
+END
+IterableComponentsMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/IterableComponentsMatcher.java
+END
+JLabelTextMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/JLabelTextMatcher.java
+END
+ComponentNameMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ComponentNameMatcher.java
+END
+ComponentTypeMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ComponentTypeMatcher.java
+END
+AbstractButtonAcceleratorMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/AbstractButtonAcceleratorMatcher.java
+END
+AbstractButtonTextMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/AbstractButtonTextMatcher.java
+END
+EmptyCollectionMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/EmptyCollectionMatcher.java
+END
+HasFocusMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/HasFocusMatcher.java
+END
+ShowingOnScreenMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ShowingOnScreenMatcher.java
+END
+DisplayableComponentMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/DisplayableComponentMatcher.java
+END
+ComponentEnabledMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ComponentEnabledMatcher.java
+END
+ComponentOpaqueMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ComponentOpaqueMatcher.java
+END
+ColorMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ColorMatcher.java
+END
+ButtonTextMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ButtonTextMatcher.java
+END
+ScrollBarMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ScrollBarMatcher.java
+END
+JMenuTextMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/JMenuTextMatcher.java
+END
+ComponentMatchers.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/ComponentMatchers.java
+END
+CollectionSizeMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/CollectionSizeMatcher.java
+END
+StringContainsInOrderMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/StringContainsInOrderMatcher.java
+END
+TableRowCountMatcher.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/matcher/TableRowCountMatcher.java
+END

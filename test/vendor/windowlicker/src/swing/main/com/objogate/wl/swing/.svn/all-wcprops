@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/258/trunk/src/swing/main/com/objogate/wl/swing
+END
+ComponentSelector.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/ComponentSelector.java
+END
+ComponentManipulation.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/ComponentManipulation.java
+END
+ComponentFinder.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/ComponentFinder.java
+END
+AWTEventQueueProber.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/AWTEventQueueProber.java
+END
+UI.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/UI.java
+END

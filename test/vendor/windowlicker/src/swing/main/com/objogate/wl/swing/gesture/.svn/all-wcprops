@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/255/trunk/src/swing/main/com/objogate/wl/swing/gesture
+END
+MappedKeyStrokeProbe.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/255/trunk/src/swing/main/com/objogate/wl/swing/gesture/MappedKeyStrokeProbe.java
+END
+ComponentCenterTracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/gesture/ComponentCenterTracker.java
+END
+GesturePerformer.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/gesture/GesturePerformer.java
+END
+ComponentEdgeTracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/gesture/ComponentEdgeTracker.java
+END
+ComponentScreenBoundsProbe.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/254/trunk/src/swing/main/com/objogate/wl/swing/gesture/ComponentScreenBoundsProbe.java
+END
+ComponentOffsetTracker.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/194/trunk/src/swing/main/com/objogate/wl/swing/gesture/ComponentOffsetTracker.java
+END
+SwingGestures.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/247/trunk/src/swing/main/com/objogate/wl/swing/gesture/SwingGestures.java
+END

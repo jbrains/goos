@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/248/trunk/src/core/main/com/objogate/wl/keyboard
+END
+FALLBACK
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/243/trunk/src/core/main/com/objogate/wl/keyboard/FALLBACK
+END
+Mac-GB
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/248/trunk/src/core/main/com/objogate/wl/keyboard/Mac-GB
+END
+US
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/243/trunk/src/core/main/com/objogate/wl/keyboard/US
+END
+GB
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/243/trunk/src/core/main/com/objogate/wl/keyboard/GB
+END
+KeyboardLayout.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/248/trunk/src/core/main/com/objogate/wl/keyboard/KeyboardLayout.java
+END

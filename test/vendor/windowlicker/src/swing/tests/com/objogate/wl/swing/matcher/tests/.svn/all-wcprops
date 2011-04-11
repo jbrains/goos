@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/194/trunk/src/swing/tests/com/objogate/wl/swing/matcher/tests
+END
+ComponentOpaqueMatcherTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/!svn/ver/194/trunk/src/swing/tests/com/objogate/wl/swing/matcher/tests/ComponentOpaqueMatcherTests.java
+END
+ComponentEnabledMatcherTests.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/194/trunk/src/swing/tests/com/objogate/wl/swing/matcher/tests/ComponentEnabledMatcherTests.java
+END
