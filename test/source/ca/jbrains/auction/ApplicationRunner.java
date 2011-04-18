@@ -6,17 +6,22 @@ import static ca.jbrains.auction.Main.MainWindow.STATUS_LOST;
 
 import javax.swing.SwingUtilities;
 
+import ca.jbrains.auction.Main.MainWindow;
+
 public class ApplicationRunner {
 	public static final String SNIPER_ID = "sniper";
 	public static final String SNIPER_PASSWORD = "sniper";
 	private AuctionSniperDriver driver;
 
-	public void startBiddingIn(final FakeAuctionServer auction) {
+	public void startBiddingIn(
+			final FakeAuctionServer auction) {
+		
 		Thread thread = new Thread("Test Application") {
 			@Override
 			public void run() {
 				try {
-					Main.main(XMPP_HOSTNAME, SNIPER_ID, SNIPER_PASSWORD,
+					Main.main(XMPP_HOSTNAME, SNIPER_ID,
+							SNIPER_PASSWORD,
 							auction.getItemId());
 				} catch (Exception logged) {
 					logged.printStackTrace();
@@ -47,8 +52,12 @@ public class ApplicationRunner {
 				public void run() {
 				}
 			});
-		} catch (Exception e) {
-			throw new RuntimeException("Defect", e);
+		} catch (Exception wrapped) {
+			throw new AssertionError(wrapped);
 		}
+	}
+
+	public void hasShownSniperIsBidding() {
+		driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
 	}
 }

@@ -2,17 +2,13 @@ package ca.jbrains.auction;
 
 import static ca.jbrains.auction.Main.ITEM_ID_AS_LOGIN;
 import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.*;
 
-import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.ChatManagerListener;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.XMPPConnection;
-import org.jivesoftware.smack.XMPPException;
+import org.hamcrest.*;
+import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
 public class FakeAuctionServer {
@@ -27,6 +23,12 @@ public class FakeAuctionServer {
 
 		public void receivesAMessage() throws InterruptedException {
 			assertThat("Message", messages.poll(5, SECONDS), is(notNullValue()));
+		}
+
+		public void receivesAMessage(Matcher<String> messagePattern) throws InterruptedException {
+			final Message message = messages.poll(5, TimeUnit.SECONDS);
+			assertThat("Message", message, is(notNullValue()));
+			assertThat(message.getBody(), messagePattern);
 		}
 	}
 
@@ -71,5 +73,18 @@ public class FakeAuctionServer {
 
 	public String getItemId() {
 		return itemId;
+	}
+
+	public void reportPrice(int price, int increment, String bidder)
+			throws XMPPException {
+
+		currentChat
+				.sendMessage("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: other bidder");
+	}
+
+	public void hasReceivedBid(int bid, String bidder) throws InterruptedException {
+		assertThat(currentChat.getParticipant(), equalTo(bidder));
+		messageListener
+				.receivesAMessage(equalTo("SOLVersion 1.1; Command: Bid; Price: 1098"));
 	}
 }

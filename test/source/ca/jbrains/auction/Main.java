@@ -23,6 +23,7 @@ public class Main {
 
 		public static final String STATUS_LOST = "Lost";
 		public static final String STATUS_JOINING = "Joining";
+		public static final String STATUS_BIDDING = "Bidding";
 
 		private JLabel sniperStatus = createLabel(MainWindow.STATUS_JOINING);
 
