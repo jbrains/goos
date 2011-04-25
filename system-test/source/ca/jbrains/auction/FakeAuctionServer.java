@@ -7,7 +7,7 @@ import static org.junit.Assert.assertThat;
 
 import java.util.concurrent.*;
 
-import org.hamcrest.*;
+import org.hamcrest.Matcher;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
@@ -75,6 +75,7 @@ public class FakeAuctionServer {
 		return itemId;
 	}
 
+	@SuppressWarnings("unused")
 	public void reportPrice(int price, int increment, String bidder)
 			throws XMPPException {
 
@@ -82,6 +83,7 @@ public class FakeAuctionServer {
 				.sendMessage("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: other bidder");
 	}
 
+	@SuppressWarnings("unused")
 	public void hasReceivedBid(int bid, String bidder) throws InterruptedException {
 		assertThat(currentChat.getParticipant(), equalTo(bidder));
 		messageListener

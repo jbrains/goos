@@ -1,9 +1,6 @@
 package ca.jbrains.auction;
 
-import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.Test;
+import org.junit.*;
 
 public class AuctionSniperEndToEndTest {
 	private final FakeAuctionServer auction = new FakeAuctionServer(
@@ -11,8 +8,7 @@ public class AuctionSniperEndToEndTest {
 	private final ApplicationRunner application = new ApplicationRunner();
 
 	@Test
-	public void sniperJoinsAuctionUntilAuctionCloses()
-			throws Exception {
+	public void sniperJoinsAuctionUntilAuctionCloses() throws Exception {
 		auction.startSellingItem();
 		application.startBiddingIn(auction);
 		auction.hasReceivedJoinRequestFromSniper();
@@ -21,8 +17,7 @@ public class AuctionSniperEndToEndTest {
 	}
 
 	@Test
-	public void sniperMakesAHigherBidButLoses()
-			throws Exception {
+	public void sniperMakesAHigherBidButLoses() throws Exception {
 
 		auction.startSellingItem();
 		application.startBiddingIn(auction);
@@ -30,8 +25,7 @@ public class AuctionSniperEndToEndTest {
 
 		auction.reportPrice(1000, 98, "other bidder");
 		application.hasShownSniperIsBidding();
-		auction.hasReceivedBid(1098,
-				"sniper@localhost/Auction");
+		auction.hasReceivedBid(1098, "sniper@localhost/Auction");
 
 		auction.announceClosed();
 		application.showsSniperHasLostAuction();

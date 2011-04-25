@@ -1,8 +1,7 @@
 package ca.jbrains.auction;
 
 import static ca.jbrains.auction.FakeAuctionServer.XMPP_HOSTNAME;
-import static ca.jbrains.auction.Main.MainWindow.STATUS_JOINING;
-import static ca.jbrains.auction.Main.MainWindow.STATUS_LOST;
+import static ca.jbrains.auction.Main.MainWindow.*;
 
 import javax.swing.SwingUtilities;
 
