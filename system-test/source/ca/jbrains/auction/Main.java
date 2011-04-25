@@ -1,6 +1,7 @@
 package ca.jbrains.auction;
 
 import java.awt.Color;
+import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
@@ -86,17 +87,32 @@ public class Main {
 	private void joinAuction(final XMPPConnection connection, String itemId)
 			throws XMPPException {
 
+		disconnectWhenUiCloses(connection);
 		final Chat chat = connection.getChatManager().createChat(
 				auctionId(itemId, connection), new MessageListener() {
 					@Override
 					public void processMessage(Chat chat, Message message) {
-						ui.showStatus(MainWindow.STATUS_LOST);
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								ui.showStatus(MainWindow.STATUS_LOST);
+							}
+						});
 					}
 				});
 
 		this.dontGcMeBro = chat;
 
 		chat.sendMessage(new Message());
+	}
+
+	private void disconnectWhenUiCloses(final XMPPConnection connection) {
+		ui.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent event) {
+				connection.disconnect();
+			}
+		});
 	}
 
 	private static String auctionId(String itemId, XMPPConnection connection) {
