@@ -1,9 +1,9 @@
 package ca.jbrains.auction.learning.test;
 
-import static org.junit.Assert.*;
-
 import org.jivesoftware.smack.*;
 import org.junit.*;
+
+import static org.junit.Assert.*;
 
 public class LearnToAuthenticateOnEjabberdTest {
     private XMPPConnection xmppConnection;

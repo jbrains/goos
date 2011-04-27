@@ -1,11 +1,11 @@
 package ca.jbrains.auction.learning.test;
 
-import static org.junit.Assert.*;
-
 import org.jivesoftware.smack.packet.Message;
 import org.junit.Test;
 
 import ca.jbrains.auction.test.ClassifySniperBidAuctionMessageTest;
+
+import static org.junit.Assert.*;
 
 public class SmackMessageContentsTest {
     @Test

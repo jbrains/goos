@@ -1,11 +1,11 @@
 package ca.jbrains.auction.test;
 
-import static org.junit.Assert.*;
-
 import org.jivesoftware.smack.packet.Message;
 import org.junit.Test;
 
 import ca.jbrains.auction.Main;
+
+import static org.junit.Assert.*;
 
 public class ClassifyReportPriceAuctionMessageTest {
     @Test
@@ -34,7 +34,7 @@ public class ClassifyReportPriceAuctionMessageTest {
                 .isReportPriceMessage(ClassifySniperBidAuctionMessageTest
                         .messageWithText(messageTextForEventNamed("NOT PRICE"))));
     }
-    
+
     @Test
     public void noBody() throws Exception {
         assertFalse(Main.isReportPriceMessage(new Message()));

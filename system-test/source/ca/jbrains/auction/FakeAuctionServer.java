@@ -1,15 +1,16 @@
 package ca.jbrains.auction;
 
-import static ca.jbrains.auction.Main.ITEM_ID_AS_LOGIN;
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
-
 import java.util.concurrent.*;
 
 import org.hamcrest.Matcher;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
+
+import static ca.jbrains.auction.Main.ITEM_ID_AS_LOGIN;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.hamcrest.Matchers.*;
+
+import static org.junit.Assert.assertThat;
 
 public class FakeAuctionServer {
     public static final class SingleMessageListener implements MessageListener {

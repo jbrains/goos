@@ -1,11 +1,11 @@
 package ca.jbrains.auction.test;
 
 import org.jivesoftware.smack.packet.Message;
-import org.junit.*;
+import org.junit.Test;
 
 import ca.jbrains.auction.Main;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class UnpackLeadingBidderFromReportPriceMessageTest {
     @Test

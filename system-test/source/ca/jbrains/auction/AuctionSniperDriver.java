@@ -1,10 +1,10 @@
 package ca.jbrains.auction;
 
-import static org.hamcrest.Matchers.equalTo;
-
 import com.objogate.wl.swing.AWTEventQueueProber;
 import com.objogate.wl.swing.driver.*;
 import com.objogate.wl.swing.gesture.GesturePerformer;
+
+import static org.hamcrest.Matchers.equalTo;
 
 public class AuctionSniperDriver extends JFrameDriver {
     @SuppressWarnings("unchecked")
