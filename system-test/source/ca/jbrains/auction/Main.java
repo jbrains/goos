@@ -147,23 +147,20 @@ public class Main {
     }
 
     public static boolean isReportPriceMessage(Message message) {
+        return messageBodyMatchesRegex(message, "SOLVersion:.*Event: PRICE.*");
+    }
+
+    private static boolean messageBodyMatchesRegex(Message message, String regex) {
         final String body = message.getBody();
         if (body == null)
             return false;
 
-        Matcher matcher = Pattern.compile("SOLVersion:.*Event: PRICE.*")
-                .matcher(body);
-        return matcher.matches();
+        return Pattern.compile(regex).matcher(body).matches();
     }
 
     public static boolean isSniperBidMessage(Message message) {
-        final String body = message.getBody();
-        if (body == null)
-            return false;
-
-        Matcher matcher = Pattern.compile("SOLVersion 1.1.*Command: Bid.*")
-                .matcher(body);
-        return matcher.matches();
+        return messageBodyMatchesRegex(message,
+                "SOLVersion 1.1.*Command: Bid.*");
     }
 
     public void signalSniperIsBidding() {
