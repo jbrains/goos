@@ -1,7 +1,10 @@
 package ca.jbrains.auction.learning.test;
 
+import java.util.*;
 import java.util.regex.*;
+import java.util.regex.Matcher;
 
+import org.hamcrest.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,28 +15,31 @@ public class BidderAttributeRegularExpressionTest {
 
     @Test
     public void extractsAttributeValue() throws Exception {
-        Matcher matcher = Pattern.compile("Bidder: ([^;]*)").matcher(
-                "Bidder: jbrains");
-        assertTrue(matcher.matches());
-        assertEquals(1, matcher.groupCount());
-        assertEquals("jbrains", matcher.group(1));
+        assertMatchesString(
+                Pattern.compile("Bidder: ([^;]*)").matcher("Bidder: jbrains"),
+                "jbrains");
     }
 
     @Test
     public void matchesEntireMessageBody() throws Exception {
-        Matcher matcher = extractBidderPattern
-                .matcher("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: jbrains");
-        assertTrue(matcher.matches());
-        assertEquals(1, matcher.groupCount());
-        assertEquals("jbrains", matcher.group(1));
+        assertMatchesString(
+                extractBidderPattern
+                        .matcher("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: jbrains"),
+                "jbrains");
     }
 
     @Test
     public void doesNotAssumeBidderIsTheLastAttribute() throws Exception {
-        Matcher matcher = extractBidderPattern
-                .matcher("SOLVersion: 1.1; Event: PRICE; Bidder: jbrains; CurrentPrice: 1000; Increment: 98");
+        assertMatchesString(
+                extractBidderPattern
+                        .matcher("SOLVersion: 1.1; Event: PRICE; Bidder: jbrains; CurrentPrice: 1000; Increment: 98"),
+                "jbrains");
+    }
+
+    // I couldn't figure out how to write this as a good Hamcrest matcher
+    private static void assertMatchesString(final Matcher matcher, String string) {
         assertTrue(matcher.matches());
         assertEquals(1, matcher.groupCount());
-        assertEquals("jbrains", matcher.group(1));
+        assertEquals(string, matcher.group(1));
     }
 }
