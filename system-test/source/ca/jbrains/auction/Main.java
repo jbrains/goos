@@ -92,7 +92,10 @@ public class Main {
                 auctionId(itemId, connection), new MessageListener() {
                     @Override
                     public void processMessage(Chat chat, Message message) {
-                        signalAuctionClosed();
+                        if (isSniperHasBidMessage(message))
+                            signalSniperIsBidding();
+                        else
+                            signalAuctionClosed();
                     }
                 });
 
@@ -124,6 +127,15 @@ public class Main {
         return connection;
     }
 
+    @SuppressWarnings("unused")
+    public static boolean isSniperHasBidMessage(Message message) {
+        return false;
+    }
+
+    public void signalSniperIsBidding() {
+        // Nothing yet
+    }
+    
     public void signalAuctionClosed() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
