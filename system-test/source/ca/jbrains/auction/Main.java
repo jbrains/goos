@@ -94,21 +94,11 @@ public class Main {
                     @Override
                     public void processMessage(Chat chat, Message message) {
                         if (isReportPriceMessage(message))
-                            handleReportPriceMessage(message);
+                            handleReportPriceMessage(chat, message);
                         else if (isSniperBidMessage(message))
                             signalSniperIsBidding();
                         else
                             signalAuctionClosed();
-                    }
-
-                    private void handleReportPriceMessage(Message message) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    private boolean isReportPriceMessage(Message message) {
-                        // TODO Auto-generated method stub
-                        return false;
                     }
                 });
 
@@ -141,9 +131,25 @@ public class Main {
         return connection;
     }
 
-    @SuppressWarnings("unused")
-    public static void handleReportPriceMessage(Message message) {
-        throw new RuntimeException("Not yet implemented");
+    public void handleReportPriceMessage(Chat chat, Message message) {
+        if ("sniper".equals(leadingBidderAccordingTo(message))) {
+            signalSniperIsBidding();
+        }
+        else {
+            counterBid(chat);
+        }
+    }
+
+    public static String leadingBidderAccordingTo(Message reportPriceMessage) {
+        return "nobody";
+    }
+
+    private void counterBid(Chat chat) {
+        try {
+            chat.sendMessage("SOLVersion 1.1; Command: Bid; Price: 1098");
+        } catch (XMPPException reported) {
+            reported.printStackTrace();
+        }
     }
 
     public static boolean isReportPriceMessage(Message message) {

@@ -90,16 +90,21 @@ public class FakeAuctionServer {
     private static String reportPriceMessage(int price, int increment,
             String bidder) {
         return String
-                .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: other bidder",
+                .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: %d; Increment: %d; Bidder: %s",
                         price, increment, bidder);
     }
 
-    @SuppressWarnings("unused")
     public void hasReceivedBid(int bid, String bidder)
             throws InterruptedException {
-        
+
         assertThat(currentChat.getParticipant(), equalTo(bidder));
         messageListener.receivesAMessage(matchingReceivedBidPattern());
+        try {
+            // ASSUME Bid increment is 98
+            currentChat.sendMessage(reportPriceMessage(bid, 98, bidder));
+        } catch (XMPPException reported) {
+            reported.printStackTrace();
+        }
     }
 
     private static Matcher<String> matchingReceivedBidPattern() {
