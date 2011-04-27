@@ -92,12 +92,7 @@ public class Main {
                 auctionId(itemId, connection), new MessageListener() {
                     @Override
                     public void processMessage(Chat chat, Message message) {
-                        SwingUtilities.invokeLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                ui.showStatus(MainWindow.STATUS_LOST);
-                            }
-                        });
+                        signalAuctionClosed();
                     }
                 });
 
@@ -127,5 +122,14 @@ public class Main {
         connection.connect();
         connection.login(username, password, AUCTION_RESOURCE_NAME);
         return connection;
+    }
+    
+    public void signalAuctionClosed() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ui.showStatus(MainWindow.STATUS_LOST);
+            }
+        });
     }
 }
