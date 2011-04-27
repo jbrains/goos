@@ -21,15 +21,18 @@ public class UnpackLeadingBidderFromReportPriceMessageTest {
                         + bidderName);
     }
 
-    @Ignore
     @Test
     public void noBidderAttribute() throws Exception {
-
+        assertEquals(
+                null,
+                Main.leadingBidderAccordingTo(ClassifySniperBidAuctionMessageTest
+                        .messageWithText("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; NotBidder: jbrains")));
     }
 
-    @Ignore
     @Test
     public void emptyBidderAttribute() throws Exception {
-
+        assertEquals(reportPriceMessageWithBidderNamed("").getBody(),
+                "",
+                Main.leadingBidderAccordingTo(reportPriceMessageWithBidderNamed("")));
     }
 }
