@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 @RunWith(JMock.class)
 public class LearnToConnectToEjabberdTest {
 	private JUnit4Mockery mockery = new JUnit4Mockery();
+	private XMPPConnection xmppConnection;
 
 	@BeforeClass
 	public static void debugSmack() {
@@ -23,6 +24,12 @@ public class LearnToConnectToEjabberdTest {
 		Thread.sleep(10000L);
 	}
 
+	@After
+	public void disconnectIfNeeded() throws Exception {
+		if (xmppConnection != null)
+			xmppConnection.disconnect();
+	}
+	
 	@Test
 	public void connectThenDisconnect() throws Exception {
 		final ConnectionListener connectionListener = mockery
@@ -34,10 +41,10 @@ public class LearnToConnectToEjabberdTest {
 			}
 		});
 
-		XMPPConnection xmppConnection = new XMPPConnection("localhost");
+		xmppConnection = new XMPPConnection("localhost");
 		xmppConnection.connect();
 		xmppConnection.addConnectionListener(connectionListener);
-		xmppConnection.disconnect();
+		xmppConnection.disconnect(); // SMELL Move this to another test?
 	}
 
 	@Test
@@ -52,7 +59,7 @@ public class LearnToConnectToEjabberdTest {
 		config.setSASLAuthenticationEnabled(true);
 		config.setDebuggerEnabled(XMPPConnection.DEBUG_ENABLED);
 
-		final XMPPConnection xmppConnection = new XMPPConnection(config);
+		xmppConnection = new XMPPConnection(config);
 		xmppConnection.connect();
 		assertTrue(xmppConnection.isConnected());
 		assertFalse(xmppConnection.isAuthenticated());
@@ -68,8 +75,6 @@ public class LearnToConnectToEjabberdTest {
 		final String response = saslAuthentication.authenticate(username,
 				password, serviceName);
 		assertNotNull(response);
-
-		xmppConnection.disconnect();
 	}
 
 	@Test
@@ -84,16 +89,17 @@ public class LearnToConnectToEjabberdTest {
 		config.setSASLAuthenticationEnabled(false);
 		config.setDebuggerEnabled(XMPPConnection.DEBUG_ENABLED);
 
-		final XMPPConnection xmppConnection = new XMPPConnection(config);
+		xmppConnection = new XMPPConnection(config);
 		xmppConnection.connect();
 		assertTrue(xmppConnection.isConnected());
 		assertFalse(xmppConnection.isAuthenticated());
 
-		final String response = new VisibleNonSASLAuthentication(xmppConnection)
-				.authenticate(username, password, serviceName);
-		assertNotNull(response);
-
-		xmppConnection.disconnect();
+		try {
+			new VisibleNonSASLAuthentication(xmppConnection)
+					.authenticate(username, password, serviceName);
+			fail("How did non-SASL authentication work with a server that demands it!?");
+		} catch (XMPPException expected) {
+		}
 	}
 
 	@Ignore("Waiting for the Saff Squeeze to help")
@@ -102,6 +108,5 @@ public class LearnToConnectToEjabberdTest {
 		final XMPPConnection xmppConnection = new XMPPConnection("localhost");
 		xmppConnection.connect();
 		xmppConnection.login("jbrains", "jbra1ns", "localhost");
-		xmppConnection.disconnect();
 	}
 }
