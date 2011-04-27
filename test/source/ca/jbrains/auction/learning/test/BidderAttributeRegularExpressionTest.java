@@ -1,10 +1,7 @@
 package ca.jbrains.auction.learning.test;
 
-import java.util.*;
 import java.util.regex.*;
-import java.util.regex.Matcher;
 
-import org.hamcrest.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
