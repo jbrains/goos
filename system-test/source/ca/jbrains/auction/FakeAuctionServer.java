@@ -76,12 +76,13 @@ public class FakeAuctionServer {
         return itemId;
     }
 
-    @SuppressWarnings("unused")
     public void reportPrice(int price, int increment, String bidder)
             throws XMPPException {
 
         currentChat
-                .sendMessage("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: other bidder");
+                .sendMessage(String
+                        .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: %d; Increment: 98; Bidder: other bidder",
+                                price, increment, bidder));
     }
 
     @SuppressWarnings("unused")

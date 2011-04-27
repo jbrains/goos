@@ -18,7 +18,6 @@ public class AuctionSniperEndToEndTest {
 
     @Test
     public void sniperMakesAHigherBidButLoses() throws Exception {
-
         auction.startSellingItem();
         application.startBiddingIn(auction);
         auction.hasReceivedJoinRequestFromSniper();
@@ -29,7 +28,6 @@ public class AuctionSniperEndToEndTest {
 
         auction.announceClosed();
         application.showsSniperHasLostAuction();
-
     }
 
     @After
