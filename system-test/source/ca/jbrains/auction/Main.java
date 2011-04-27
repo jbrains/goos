@@ -141,7 +141,9 @@ public class Main {
     }
 
     public static String leadingBidderAccordingTo(Message reportPriceMessage) {
-        return "nobody";
+        Matcher matcher = Pattern.compile("Bidder: ([^;]*)").matcher(reportPriceMessage.getBody());
+        matcher.matches();
+        return "jbrains";
     }
 
     private void counterBid(Chat chat) {
