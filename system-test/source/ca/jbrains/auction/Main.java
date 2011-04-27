@@ -100,9 +100,6 @@ public class Main {
                                     message.toString()));
                     }
 
-                    private boolean isCloseAuction(Message message) {
-                        return true;
-                    }
                 });
 
         this.dontGcMeBro = chat;
@@ -140,5 +137,10 @@ public class Main {
                 ui.showStatus(MainWindow.STATUS_LOST);
             }
         });
+    }
+
+    @SuppressWarnings("unused")
+    public boolean isCloseAuction(Message message) {
+        return true;
     }
 }
