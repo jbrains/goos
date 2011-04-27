@@ -1,0 +1,2 @@
+ejabberdctl stop
+
