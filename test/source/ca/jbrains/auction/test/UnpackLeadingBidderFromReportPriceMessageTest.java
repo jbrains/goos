@@ -31,8 +31,23 @@ public class UnpackLeadingBidderFromReportPriceMessageTest {
 
     @Test
     public void emptyBidderAttribute() throws Exception {
-        assertEquals(reportPriceMessageWithBidderNamed("").getBody(),
+        assertEquals(
                 "",
                 Main.leadingBidderAccordingTo(reportPriceMessageWithBidderNamed("")));
+    }
+
+    @Test
+    public void bidderNameContainsSpaces() throws Exception {
+        assertEquals(
+                "other bidder",
+                Main.leadingBidderAccordingTo(reportPriceMessageWithBidderNamed("other bidder")));
+    }
+
+    @Test
+    public void bidderNameHasSurroundingSpaces() throws Exception {
+        assertEquals(
+                "other bidder",
+                Main.leadingBidderAccordingTo(reportPriceMessageWithBidderNamed("   other bidder  ")));
+
     }
 }

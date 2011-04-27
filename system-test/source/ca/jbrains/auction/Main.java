@@ -134,18 +134,15 @@ public class Main {
     public void handleReportPriceMessage(Chat chat, Message message) {
         if ("sniper".equals(leadingBidderAccordingTo(message))) {
             signalSniperIsBidding();
-        }
-        else {
+        } else {
             counterBid(chat);
         }
     }
 
     public static String leadingBidderAccordingTo(Message reportPriceMessage) {
-        Matcher matcher = Pattern.compile(".*\\bBidder:\\s*([^;]*).*").matcher(reportPriceMessage.getBody());
-        if (!matcher.matches())
-            return null;
-        
-        return matcher.group(1);
+        Matcher matcher = Pattern.compile(".*\\bBidder:([^;]*).*").matcher(
+                reportPriceMessage.getBody());
+        return matcher.matches() ? matcher.group(1).trim() : null;
     }
 
     private void counterBid(Chat chat) {
