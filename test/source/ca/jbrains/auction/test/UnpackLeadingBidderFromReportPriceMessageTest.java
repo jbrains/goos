@@ -48,6 +48,5 @@ public class UnpackLeadingBidderFromReportPriceMessageTest {
         assertEquals(
                 "other bidder",
                 Main.leadingBidderAccordingTo(reportPriceMessageWithBidderNamed("   other bidder  ")));
-
     }
 }
