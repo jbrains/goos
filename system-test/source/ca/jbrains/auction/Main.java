@@ -92,7 +92,16 @@ public class Main {
                 auctionId(itemId, connection), new MessageListener() {
                     @Override
                     public void processMessage(Chat chat, Message message) {
-                        signalAuctionClosed();
+                        if (isCloseAuction(message))
+                            signalAuctionClosed();
+                        else
+                            throw new RuntimeException(String.format(
+                                    "I don't understand this message: %s",
+                                    message.toString()));
+                    }
+
+                    private boolean isCloseAuction(Message message) {
+                        return true;
                     }
                 });
 
@@ -123,7 +132,7 @@ public class Main {
         connection.login(username, password, AUCTION_RESOURCE_NAME);
         return connection;
     }
-    
+
     public void signalAuctionClosed() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
