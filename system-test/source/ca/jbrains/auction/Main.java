@@ -3,6 +3,7 @@ package ca.jbrains.auction;
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.*;
+import java.util.regex.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -92,10 +93,22 @@ public class Main {
                 auctionId(itemId, connection), new MessageListener() {
                     @Override
                     public void processMessage(Chat chat, Message message) {
-                        if (isSniperHasBidMessage(message))
+                        if (isReportPriceMessage(message))
+                            handleReportPriceMessage(message);
+                        else if (isSniperBidMessage(message))
                             signalSniperIsBidding();
                         else
                             signalAuctionClosed();
+                    }
+
+                    private void handleReportPriceMessage(Message message) {
+                        // TODO Auto-generated method stub
+                        
+                    }
+
+                    private boolean isReportPriceMessage(Message message) {
+                        // TODO Auto-generated method stub
+                        return false;
                     }
                 });
 
@@ -118,6 +131,7 @@ public class Main {
                 connection.getServiceName());
     }
 
+    // REFACTOR Rename to loginTo().
     private static XMPPConnection connectTo(String hostname, String username,
             String password) throws XMPPException {
 
@@ -128,14 +142,36 @@ public class Main {
     }
 
     @SuppressWarnings("unused")
-    public static boolean isSniperHasBidMessage(Message message) {
+    public static void handleReportPriceMessage(Message message) {
+        throw new RuntimeException("Not yet implemented");
+    }
+
+    @SuppressWarnings("unused")
+    public static boolean isReportPriceMessage(Message message) {
         return false;
     }
 
-    public void signalSniperIsBidding() {
-        // Nothing yet
+    public static boolean isSniperBidMessage(Message message) {
+        final String body = message.getBody();
+        if (body == null)
+            return false;
+
+        // SMELL Performance problem?
+        Pattern matchesBidCommands = Pattern
+                .compile("SOLVersion 1.1.*Command: Bid.*");
+        Matcher matcher = matchesBidCommands.matcher(body);
+        return matcher.matches();
     }
-    
+
+    public void signalSniperIsBidding() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ui.showStatus(MainWindow.STATUS_BIDDING);
+            }
+        });
+    }
+
     public void signalAuctionClosed() {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

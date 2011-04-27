@@ -61,11 +61,16 @@ public class FakeAuctionServer {
     }
 
     public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
+        // ASSUME All messages are join requests
         messageListener.receivesAMessage();
     }
 
     public void announceClosed() throws XMPPException {
-        currentChat.sendMessage(new Message());
+        currentChat.sendMessage(auctionClosedMessage());
+    }
+
+    private static Message auctionClosedMessage() {
+        return new Message();
     }
 
     public void stop() {
@@ -79,17 +84,25 @@ public class FakeAuctionServer {
     public void reportPrice(int price, int increment, String bidder)
             throws XMPPException {
 
-        currentChat
-                .sendMessage(String
-                        .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: %d; Increment: 98; Bidder: other bidder",
-                                price, increment, bidder));
+        currentChat.sendMessage(reportPriceMessage(price, increment, bidder));
+    }
+
+    private static String reportPriceMessage(int price, int increment,
+            String bidder) {
+        return String
+                .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: other bidder",
+                        price, increment, bidder);
     }
 
     @SuppressWarnings("unused")
     public void hasReceivedBid(int bid, String bidder)
             throws InterruptedException {
+        
         assertThat(currentChat.getParticipant(), equalTo(bidder));
-        messageListener
-                .receivesAMessage(equalTo("SOLVersion 1.1; Command: Bid; Price: 1098"));
+        messageListener.receivesAMessage(matchingReceivedBidPattern());
+    }
+
+    private static Matcher<String> matchingReceivedBidPattern() {
+        return equalTo("SOLVersion 1.1; Command: Bid; Price: 1098");
     }
 }

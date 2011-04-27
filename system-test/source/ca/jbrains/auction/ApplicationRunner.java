@@ -13,7 +13,6 @@ public class ApplicationRunner {
     private AuctionSniperDriver driver;
 
     public void startBiddingIn(final FakeAuctionServer auction) {
-
         Thread thread = new Thread("Test Application") {
             @Override
             public void run() {
