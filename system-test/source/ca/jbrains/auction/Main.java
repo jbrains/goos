@@ -92,14 +92,8 @@ public class Main {
                 auctionId(itemId, connection), new MessageListener() {
                     @Override
                     public void processMessage(Chat chat, Message message) {
-                        if (isCloseAuction(message))
-                            signalAuctionClosed();
-                        else
-                            throw new RuntimeException(String.format(
-                                    "I don't understand this message: %s",
-                                    message.toString()));
+                        signalAuctionClosed();
                     }
-
                 });
 
         this.dontGcMeBro = chat;
@@ -137,10 +131,5 @@ public class Main {
                 ui.showStatus(MainWindow.STATUS_LOST);
             }
         });
-    }
-
-    @SuppressWarnings("unused")
-    public boolean isCloseAuction(Message message) {
-        return true;
     }
 }
