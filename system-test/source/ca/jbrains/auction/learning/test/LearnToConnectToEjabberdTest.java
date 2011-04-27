@@ -30,24 +30,6 @@ public class LearnToConnectToEjabberdTest {
     }
 
     @Test
-    @Ignore
-    public void connectThenDisconnect() throws Exception {
-        final ConnectionListener connectionListener = mockery
-                .mock(ConnectionListener.class);
-
-        mockery.checking(new Expectations() {
-            {
-                oneOf(connectionListener).connectionClosed();
-            }
-        });
-
-        xmppConnection = new XMPPConnection("localhost");
-        xmppConnection.connect();
-        xmppConnection.addConnectionListener(connectionListener);
-        xmppConnection.disconnect(); // SMELL Move this to another test?
-    }
-
-    @Test
     public void login() throws Exception {
         final XMPPConnection xmppConnection = new XMPPConnection("localhost");
         xmppConnection.connect();
@@ -57,7 +39,7 @@ public class LearnToConnectToEjabberdTest {
     }
 
     @Test
-    public void saff() throws Exception {
+    public void saffSqueezeOnLogin() throws Exception {
         final TranslucentXmppConnection xmppConnection = new TranslucentXmppConnection(
                 "localhost");
         final ConnectionConfiguration configuration = xmppConnection
@@ -72,11 +54,9 @@ public class LearnToConnectToEjabberdTest {
                 .getSASLAuthentication();
         assertTrue(saslAuthentication.hasNonAnonymousAuthentication());
 
-        configuration.setReconnectionAllowed(false);
-        configuration.setSendPresence(false);
-
-        assertEquals("sniper@localhost/localhost",
-                saslAuthentication
-                        .authenticate("sniper", "sniper", "localhost"));
+        final String authenticatedUserName = saslAuthentication.authenticate(
+                "sniper", "sniper", "localhost");
+        
+        assertEquals("sniper@localhost/localhost", authenticatedUserName);
     }
 }
