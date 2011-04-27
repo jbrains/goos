@@ -132,7 +132,7 @@ public class Main {
     }
 
     public void handleReportPriceMessage(Chat chat, Message message) {
-        if ("sniper".equals(leadingBidderAccordingTo(message))) {
+        if ("sniper@localhost/Auction".equals(leadingBidderAccordingTo(message))) {
             signalSniperIsBidding();
         } else {
             counterBid(chat);
