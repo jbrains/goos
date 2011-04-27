@@ -103,7 +103,7 @@ public class Main {
 
                     private void handleReportPriceMessage(Message message) {
                         // TODO Auto-generated method stub
-                        
+
                     }
 
                     private boolean isReportPriceMessage(Message message) {
@@ -146,9 +146,14 @@ public class Main {
         throw new RuntimeException("Not yet implemented");
     }
 
-    @SuppressWarnings("unused")
     public static boolean isReportPriceMessage(Message message) {
-        return false;
+        final String body = message.getBody();
+        if (body == null)
+            return false;
+
+        Matcher matcher = Pattern.compile("SOLVersion:.*Event: PRICE.*")
+                .matcher(body);
+        return matcher.matches();
     }
 
     public static boolean isSniperBidMessage(Message message) {
@@ -156,10 +161,8 @@ public class Main {
         if (body == null)
             return false;
 
-        // SMELL Performance problem?
-        Pattern matchesBidCommands = Pattern
-                .compile("SOLVersion 1.1.*Command: Bid.*");
-        Matcher matcher = matchesBidCommands.matcher(body);
+        Matcher matcher = Pattern.compile("SOLVersion 1.1.*Command: Bid.*")
+                .matcher(body);
         return matcher.matches();
     }
 

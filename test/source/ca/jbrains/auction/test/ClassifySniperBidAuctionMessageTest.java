@@ -22,16 +22,7 @@ public class ClassifySniperBidAuctionMessageTest {
     }
 
     @Test
-    public void messageContents() throws Exception {
-        assertEquals("SOLVersion 1.1; Command: Bid; Price: 1098",
-                messageWithText("SOLVersion 1.1; Command: Bid; Price: 1098")
-                        .getBody());
-        assertEquals("not the body", new Message("not the body").getTo());
-        assertNull(new Message("not the body").getBody());
-    }
-
-    @Test
-    public void notSolMessage() throws Exception {
+    public void notAnSolMessage() throws Exception {
         assertFalse(Main
                 .isSniperBidMessage(messageWithText("jbrains 3.0, bitchez; Command: Bid")));
     }
@@ -41,7 +32,7 @@ public class ClassifySniperBidAuctionMessageTest {
         assertFalse(Main.isSniperBidMessage(new Message()));
     }
 
-    private static Message messageWithText(String text) {
+    public static Message messageWithText(String text) {
         final Message message = new Message();
         message.setBody(text);
         return message;
