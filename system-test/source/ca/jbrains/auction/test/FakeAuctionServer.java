@@ -1,4 +1,4 @@
-package ca.jbrains.auction;
+package ca.jbrains.auction.test;
 
 import java.util.concurrent.*;
 
@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-import static ca.jbrains.auction.Main.ITEM_ID_AS_LOGIN;
+import static ca.jbrains.auction.test.Main.ITEM_ID_AS_LOGIN;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.Matchers.*;
 

@@ -1,4 +1,4 @@
-package ca.jbrains.auction;
+package ca.jbrains.auction.test;
 
 import org.junit.*;
 

@@ -1,10 +1,10 @@
-package ca.jbrains.auction;
+package ca.jbrains.auction.test;
 
 import javax.swing.SwingUtilities;
 
-import ca.jbrains.auction.Main.MainWindow;
-import static ca.jbrains.auction.FakeAuctionServer.XMPP_HOSTNAME;
-import static ca.jbrains.auction.Main.MainWindow.*;
+import ca.jbrains.auction.test.Main.MainWindow;
+import static ca.jbrains.auction.test.FakeAuctionServer.XMPP_HOSTNAME;
+import static ca.jbrains.auction.test.Main.MainWindow.*;
 
 public class ApplicationRunner {
     public static final String SNIPER_ID = "sniper";

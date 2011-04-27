@@ -3,7 +3,7 @@ package ca.jbrains.auction.test;
 import org.jivesoftware.smack.packet.Message;
 import org.junit.Test;
 
-import ca.jbrains.auction.Main;
+import ca.jbrains.auction.smack.SmackMessageObjectMother;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ public class ClassifyReportPriceAuctionMessageTest {
     @Test
     public void happyPath() throws Exception {
         assertTrue(Main
-                .isReportPriceMessage(ClassifySniperBidAuctionMessageTest
+                .isReportPriceMessage(SmackMessageObjectMother
                         .messageWithText("SOLVersion: 1.1; Event: PRICE"
                                 + irrelevantDetails())));
     }
@@ -19,7 +19,7 @@ public class ClassifyReportPriceAuctionMessageTest {
     @Test
     public void notAnSolMessage() throws Exception {
         assertFalse(Main
-                .isReportPriceMessage(ClassifySniperBidAuctionMessageTest
+                .isReportPriceMessage(SmackMessageObjectMother
                         .messageWithText("jbrains 3.0, bitchez; Event: PRICE"
                                 + irrelevantDetails())));
     }
@@ -31,7 +31,7 @@ public class ClassifyReportPriceAuctionMessageTest {
     @Test
     public void notAPriceEvent() throws Exception {
         assertFalse(Main
-                .isReportPriceMessage(ClassifySniperBidAuctionMessageTest
+                .isReportPriceMessage(SmackMessageObjectMother
                         .messageWithText(messageTextForEventNamed("NOT PRICE"))));
     }
 

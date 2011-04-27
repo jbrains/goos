@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local-project language="java" version="3.4.1223" flavor="j2se">
+  <property name="show-needs-to-compile" value="false" />
+  <property name="hide-externals" value="false" />
+  <property name="detail-mode" value="true" />
+  <classpath>
+    <classpathentry kind="lib" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/production/classes" />
+    <classpathentry kind="lib" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/system-test/classes" />
+    <classpathentry kind="lib" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/test/classes" />
+  </classpath>
+  <restructuring>
+    <set version="1" name="Sandbox 1" hiview="Codemap" active="true" todo="false" />
+    <set version="1" name="Flattened to classes" hiview="Codemap" active="false" todo="false">
+      <action type="flatten" active="true" description="Flatten root">
+        <params flattenLeafFolders="true">
+          <container-fqn fqn="root" type="root" path="" isroot="true" />
+        </params>
+        <composite-set />
+      </action>
+    </set>
+    <set version="1" name="Flattened to leaf packages" hiview="Codemap" active="false" todo="false">
+      <action type="flatten" active="true" description="Flatten root">
+        <params flattenLeafFolders="false">
+          <container-fqn fqn="root" type="root" path="" isroot="true" />
+        </params>
+        <composite-set />
+      </action>
+    </set>
+  </restructuring>
+  <sourcepaths>
+    <pathentry type="file" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/production/source" />
+    <pathentry type="file" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/system-test/source" />
+    <pathentry type="file" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/test/source" />
+  </sourcepaths>
+  <grid-set sep="." version="3.4.1223">
+    <grid name="Diagram 1" enforce="true" strict="false">
+      <row>
+        <cell name="ca.jbrains.auction" pattern="ca.jbrains.auction.*" vexpanded="true" visibility="public">
+          <grid>
+            <row>
+              <cell name="learning.test" pattern="ca.jbrains.auction.learning.test.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="LearnToAuthenticateOnEjabberdTest" pattern="ca.jbrains.auction.learning.test.LearnToAuthenticateOnEjabberdTest" vexpanded="false" visibility="public" />
+                    <cell name="LearnToConnectToEjabberdTest" pattern="ca.jbrains.auction.learning.test.LearnToConnectToEjabberdTest" vexpanded="false" visibility="public" />
+                  </row>
+                  <row>
+                    <cell name="BidderAttributeRegularExpressionTest" pattern="ca.jbrains.auction.learning.test.BidderAttributeRegularExpressionTest" vexpanded="false" visibility="public" />
+                    <cell name="SaslAuthenticationConfiguration" pattern="ca.jbrains.auction.learning.test.SaslAuthenticationConfiguration" vexpanded="false" visibility="public" />
+                    <cell name="SmackMessageContentsTest" pattern="ca.jbrains.auction.learning.test.SmackMessageContentsTest" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+            <row>
+              <cell name="auction" pattern="ca.jbrains.auction.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="AuctionSniperEndToEndTest" pattern="ca.jbrains.auction.AuctionSniperEndToEndTest" vexpanded="false" visibility="public" />
+                  </row>
+                  <row>
+                    <cell name="ApplicationRunner" pattern="ca.jbrains.auction.ApplicationRunner" vexpanded="false" visibility="public" />
+                  </row>
+                  <row>
+                    <cell name="AuctionSniperDriver" pattern="ca.jbrains.auction.AuctionSniperDriver" vexpanded="false" visibility="public" />
+                    <cell name="FakeAuctionServer" pattern="ca.jbrains.auction.FakeAuctionServer" vexpanded="false" visibility="public" />
+                    <cell name="Main" pattern="ca.jbrains.auction.Main" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="test" pattern="ca.jbrains.auction.test.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="UnpackLeadingBidderFromReportPriceMessageTest" pattern="ca.jbrains.auction.test.UnpackLeadingBidderFromReportPriceMessageTest" vexpanded="false" visibility="public" />
+                  </row>
+                  <row>
+                    <cell name="ClassifyReportPriceAuctionMessageTest" pattern="ca.jbrains.auction.test.ClassifyReportPriceAuctionMessageTest" vexpanded="false" visibility="public" />
+                  </row>
+                  <row>
+                    <cell name="ClassifySniperBidAuctionMessageTest" pattern="ca.jbrains.auction.test.ClassifySniperBidAuctionMessageTest" vexpanded="true" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <row>
+        <cell name="org" pattern="org.*" vexpanded="true" visibility="public">
+          <grid>
+            <row>
+              <cell name="hamcrest" pattern="org.hamcrest.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="Matcher" pattern="org.hamcrest.Matcher" vexpanded="false" visibility="public" />
+                    <cell name="Matchers" pattern="org.hamcrest.Matchers" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="jivesoftware.smack" pattern="org.jivesoftware.smack.*" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="smack" pattern="org.jivesoftware.smack.?" vexpanded="false" visibility="public" />
+                    <cell name="packet" pattern="org.jivesoftware.smack.packet.?" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="junit" pattern="org.junit.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="After" pattern="org.junit.After" vexpanded="false" visibility="public" />
+                    <cell name="Assert" pattern="org.junit.Assert" vexpanded="false" visibility="public" />
+                    <cell name="Test" pattern="org.junit.Test" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <row>
+        <cell name="com.objogate.wl" pattern="com.objogate.wl.*" vexpanded="false" visibility="public">
+          <grid>
+            <row>
+              <cell name="wl" pattern="com.objogate.wl.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="Prober" pattern="com.objogate.wl.Prober" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="swing" pattern="com.objogate.wl.swing.*" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="swing" pattern="com.objogate.wl.swing.?" vexpanded="false" visibility="public" />
+                    <cell name="driver" pattern="com.objogate.wl.swing.driver.?" vexpanded="false" visibility="public" />
+                    <cell name="gesture" pattern="com.objogate.wl.swing.gesture.?" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+          </grid>
+        </cell>
+        <cell name="java" pattern="java.*" vexpanded="false" visibility="public">
+          <grid>
+            <row>
+              <cell name="awt" pattern="java.awt.*" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="awt" pattern="java.awt.?" vexpanded="false" visibility="public" />
+                    <cell name="event" pattern="java.awt.event.?" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="lang" pattern="java.lang.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="AssertionError" pattern="java.lang.AssertionError" vexpanded="false" visibility="public" />
+                    <cell name="CharSequence" pattern="java.lang.CharSequence" vexpanded="false" visibility="public" />
+                    <cell name="Exception" pattern="java.lang.Exception" vexpanded="false" visibility="public" />
+                    <cell name="InterruptedException" pattern="java.lang.InterruptedException" vexpanded="false" visibility="public" />
+                    <cell name="Object" pattern="java.lang.Object" vexpanded="false" visibility="public" />
+                    <cell name="Runnable" pattern="java.lang.Runnable" vexpanded="false" visibility="public" />
+                    <cell name="String" pattern="java.lang.String" vexpanded="false" visibility="public" />
+                    <cell name="StringBuilder" pattern="java.lang.StringBuilder" vexpanded="false" visibility="public" />
+                    <cell name="System" pattern="java.lang.System" vexpanded="false" visibility="public" />
+                    <cell name="Thread" pattern="java.lang.Thread" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="util" pattern="java.util.*" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="util" pattern="java.util.?" vexpanded="false" visibility="public" />
+                    <cell name="concurrent" pattern="java.util.concurrent.?" vexpanded="false" visibility="public" />
+                    <cell name="regex" pattern="java.util.regex.?" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+          </grid>
+        </cell>
+        <cell name="javax" pattern="javax.*" vexpanded="false" visibility="public">
+          <grid>
+            <row>
+              <cell name="security.auth.callback" pattern="javax.security.auth.callback.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="CallbackHandler" pattern="javax.security.auth.callback.CallbackHandler" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="swing" pattern="javax.swing.*" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="swing" pattern="javax.swing.?" vexpanded="false" visibility="public" />
+                    <cell name="border" pattern="javax.swing.border.?" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <description>Top-level breakout (depth=3)</description>
+    </grid>
+  </grid-set>
+</local-project>
+
