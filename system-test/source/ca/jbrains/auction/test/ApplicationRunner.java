@@ -45,6 +45,7 @@ public class ApplicationRunner {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
+                    // No need to do anything
                 }
             });
         } catch (Exception wrapped) {

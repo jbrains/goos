@@ -15,12 +15,6 @@ public class UnpackLeadingBidderFromReportPriceMessageTest {
                 Main.leadingBidderAccordingTo(reportPriceMessageWithBidderNamed("jbrains")));
     }
 
-    private Message reportPriceMessageWithBidderNamed(String bidderName) {
-        return SmackMessageObjectMother
-                .messageWithText("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: "
-                        + bidderName);
-    }
-
     @Test
     public void noBidderAttribute() throws Exception {
         assertEquals(
@@ -48,5 +42,11 @@ public class UnpackLeadingBidderFromReportPriceMessageTest {
         assertEquals(
                 "other bidder",
                 Main.leadingBidderAccordingTo(reportPriceMessageWithBidderNamed("   other bidder  ")));
+    }
+
+    private Message reportPriceMessageWithBidderNamed(String bidderName) {
+        return SmackMessageObjectMother
+                .messageWithText("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: "
+                        + bidderName);
     }
 }

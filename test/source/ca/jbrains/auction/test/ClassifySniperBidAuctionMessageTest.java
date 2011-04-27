@@ -28,7 +28,7 @@ public class ClassifySniperBidAuctionMessageTest {
     }
 
     @Test
-    public void messageWithNoBody() throws Exception {
+    public void noBody() throws Exception {
         assertFalse(Main.isSniperBidMessage(new Message()));
     }
 

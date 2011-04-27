@@ -24,10 +24,6 @@ public class ClassifyReportPriceAuctionMessageTest {
                                 + irrelevantDetails())));
     }
 
-    private String irrelevantDetails() {
-        return "; CurrentPrice: 1000; Increment: 98; Bidder: other bidder";
-    }
-
     @Test
     public void notAPriceEvent() throws Exception {
         assertFalse(Main
@@ -42,5 +38,9 @@ public class ClassifyReportPriceAuctionMessageTest {
 
     private String messageTextForEventNamed(String eventName) {
         return "SOLVersion: 1.1; Event: " + eventName + irrelevantDetails();
+    }
+
+    private String irrelevantDetails() {
+        return "; CurrentPrice: 1000; Increment: 98; Bidder: other bidder";
     }
 }

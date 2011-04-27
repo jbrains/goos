@@ -109,6 +109,7 @@ public class FakeAuctionServer {
     }
 
     private static Matcher<String> matchingReceivedBidPattern() {
+        // ASSUME Price is 1098
         return equalTo("SOLVersion 1.1; Command: Bid; Price: 1098");
     }
 }

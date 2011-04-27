@@ -3,7 +3,7 @@
   <property name="show-needs-to-compile" value="false" />
   <property name="hide-externals" value="false" />
   <property name="detail-mode" value="true" />
-  <classpath>
+  <classpath relativeto="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/design">
     <classpathentry kind="lib" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/production/classes" />
     <classpathentry kind="lib" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/system-test/classes" />
     <classpathentry kind="lib" path="/Users/jbrains/Workspaces/Rogers/BookClub/GOOS Auction House/test/classes" />

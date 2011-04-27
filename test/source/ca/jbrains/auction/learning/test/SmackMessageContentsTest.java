@@ -9,13 +9,18 @@ import static org.junit.Assert.*;
 
 public class SmackMessageContentsTest {
     @Test
-    public void messageContents() throws Exception {
+    public void correctWayToCreateAMessage() throws Exception {
         assertEquals(
                 "SOLVersion 1.1; Command: Bid; Price: 1098",
                 SmackMessageObjectMother.messageWithText(
                         "SOLVersion 1.1; Command: Bid; Price: 1098").getBody());
-        assertEquals("not the body", new Message("not the body").getTo());
-        assertNull(new Message("not the body").getBody());
     }
-
+    
+    @Test
+    public void incorrectWaysToCreateAMessage() throws Exception {
+        assertNull(new Message("not the body").getBody());
+        
+        // in fact...
+        assertEquals("not the body", new Message("not the body").getTo());
+    }
 }

@@ -49,6 +49,8 @@ public class Main {
     public static final String ITEM_ID_AS_LOGIN = "auction-%s";
     private static final String AUCTION_ID_FORMAT = ITEM_ID_AS_LOGIN
             + "@%s/Auction";
+    public static final String SNIPER_XMPP_ID = "sniper@localhost/Auction";
+
     private MainWindow ui;
 
     @SuppressWarnings("unused")
@@ -91,8 +93,11 @@ public class Main {
         disconnectWhenUiCloses(connection);
         final Chat chat = connection.getChatManager().createChat(
                 auctionId(itemId, connection), new MessageListener() {
+                    // SMELL This nested class makes cyclic dependencies too
+                    // easy
                     @Override
                     public void processMessage(Chat chat, Message message) {
+                        // REFACTOR Replace conditional with polymorphism
                         if (isReportPriceMessage(message))
                             handleReportPriceMessage(chat, message);
                         else if (isSniperBidMessage(message))
@@ -104,6 +109,7 @@ public class Main {
 
         this.dontGcMeBro = chat;
 
+        // ASSUME This message doesn't need a specific body
         chat.sendMessage(new Message());
     }
 
@@ -131,9 +137,10 @@ public class Main {
         return connection;
     }
 
+    // SMELL In one body, update the UI; in the other, send a new bid. That
+    // can't be right.
     public void handleReportPriceMessage(Chat chat, Message message) {
-        if ("sniper@localhost/Auction"
-                .equals(leadingBidderAccordingTo(message))) {
+        if (Main.SNIPER_XMPP_ID.equals(leadingBidderAccordingTo(message))) {
             signalSniperIsBidding();
         } else {
             counterBid(chat);
