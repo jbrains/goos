@@ -97,23 +97,32 @@ public class Main {
                     // easy
                     @Override
                     public void processMessage(Chat chat, Message message) {
-                        // REFACTOR Replace conditional with polymorphism
+                        // REFACTOR Replace conditional with polymorphism in each
+                        
+                        // non-UI work
                         if (isReportPriceMessage(message)) {
-                            // SMELL In one body, update the UI; in the other,
-                            // send a new bid. That
-                            // can't be right.
+                            if (Main.SNIPER_XMPP_ID
+                                    .equals(leadingBidderAccordingTo(message))) {
+                            } else {
+                                counterBid(chat);
+                            }
+                        } else if (isSniperBidMessage(message)) {
+                        } else {
+                        }
+
+                        // UI-only work
+                        if (isReportPriceMessage(message)) {
                             if (Main.SNIPER_XMPP_ID
                                     .equals(leadingBidderAccordingTo(message))) {
                                 signalSniperIsBidding();
                             } else {
-                                counterBid(chat);
                             }
                         } else if (isSniperBidMessage(message)) {
                             signalSniperIsBidding();
                         } else {
                             signalAuctionClosed();
                         }
-                    }
+}
                 });
 
         this.dontGcMeBro = chat;
