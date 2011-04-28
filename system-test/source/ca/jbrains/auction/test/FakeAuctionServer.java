@@ -7,7 +7,6 @@ import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
 import static ca.jbrains.auction.test.Main.ITEM_ID_AS_LOGIN;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.Matchers.*;
 
 import static org.junit.Assert.assertThat;
@@ -23,10 +22,10 @@ public class FakeAuctionServer {
         }
 
         public void receivesAMessage() throws InterruptedException {
-            assertThat("Message", messages.poll(5, SECONDS), is(notNullValue()));
+            receivesAMessage(is(anything()));
         }
 
-        public void receivesAMessage(Matcher<String> messagePattern)
+        public void receivesAMessage(Matcher<? super String> messagePattern)
                 throws InterruptedException {
             final Message message = messages.poll(5, TimeUnit.SECONDS);
             assertThat("Message", message, is(notNullValue()));
