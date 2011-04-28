@@ -33,12 +33,12 @@ public class FakeAuctionServer {
         }
     }
 
-    public static final String AUCTION_RESOURCE = "Auction";
     public static final String XMPP_HOSTNAME = "localhost";
+    private static final String AUCTION_RESOURCE = "Auction";
     private static final String AUCTION_PASSWORD = "auction";
 
     private final String itemId;
-    private XMPPConnection connection;
+    private final XMPPConnection connection;
     private Chat currentChat;
     private final SingleMessageListener messageListener = new SingleMessageListener();
 
