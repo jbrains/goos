@@ -11,6 +11,8 @@ import javax.swing.border.LineBorder;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
+import ca.jbrains.auction.message.test.JoinAuctionMessageTest.Messages;
+
 public class Main implements MessageListener {
     private static final String AUCTION_RESOURCE_NAME = "Auction";
 
@@ -113,11 +115,7 @@ public class Main implements MessageListener {
 
         this.dontGcMeBro = chat;
 
-        chat.sendMessage(joinAuctionMessage());
-    }
-
-    private static Message joinAuctionMessage() {
-        return new Message();
+        chat.sendMessage(Messages.joinAuction());
     }
 
     private void disconnectWhenUiCloses(final XMPPConnection connection) {
