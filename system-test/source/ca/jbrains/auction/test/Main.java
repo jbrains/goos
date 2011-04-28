@@ -102,32 +102,16 @@ public class Main implements MessageListener {
 
                         // non-UI work
                         if (isReportPriceMessage(message)) {
-                            if (Main.SNIPER_XMPP_ID
+                            if (!Main.SNIPER_XMPP_ID
                                     .equals(leadingBidderAccordingTo(message))) {
-                            } else {
                                 counterBid(chat);
                             }
-                        } else if (isSniperBidMessage(message)) {
-                        } else {
-                        }
-
-                        // UI-only work
-                        if (isReportPriceMessage(message)) {
-                            if (Main.SNIPER_XMPP_ID
-                                    .equals(leadingBidderAccordingTo(message))) {
-                                signalSniperIsBidding();
-                            } else {
-                            }
-                        } else if (isSniperBidMessage(message)) {
-                            signalSniperIsBidding();
-                        } else {
-                            signalAuctionClosed();
                         }
                     }
                 });
 
         chat.addMessageListener(this);
-        
+
         this.dontGcMeBro = chat;
 
         // ASSUME This message doesn't need a specific body
@@ -210,8 +194,7 @@ public class Main implements MessageListener {
     @Override
     public void processMessage(Chat chat, Message message) {
         if (isReportPriceMessage(message)) {
-            if (Main.SNIPER_XMPP_ID
-                    .equals(leadingBidderAccordingTo(message))) {
+            if (Main.SNIPER_XMPP_ID.equals(leadingBidderAccordingTo(message))) {
                 signalSniperIsBidding();
             } else {
             }
