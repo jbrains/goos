@@ -193,7 +193,7 @@ public class Main implements MessageListener {
     @Override
     public void processMessage(Chat chat, Message message) {
         if (isReportPriceMessage(message)) {
-            if (sniperIsTheLeadingBidderAccordingTo(message)) {
+            if (!sniperIsTheLeadingBidderAccordingTo(message)) {
                 signalSniperIsBidding();
             }
         } else if (isSniperBidMessage(message)) {
