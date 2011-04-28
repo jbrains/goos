@@ -142,6 +142,10 @@ public class Main implements MessageListener {
         return connection;
     }
 
+    public static boolean isReportPriceMessage(Message message) {
+        return messageBodyMatchesRegex(message, "SOLVersion:.*Event: PRICE.*");
+    }
+
     public static String leadingBidderAccordingTo(Message reportPriceMessage) {
         Matcher matcher = Pattern.compile(".*\\bBidder:([^;]*).*").matcher(
                 reportPriceMessage.getBody());
@@ -154,10 +158,6 @@ public class Main implements MessageListener {
         } catch (XMPPException reported) {
             reported.printStackTrace();
         }
-    }
-
-    public static boolean isReportPriceMessage(Message message) {
-        return messageBodyMatchesRegex(message, "SOLVersion:.*Event: PRICE.*");
     }
 
     private static boolean messageBodyMatchesRegex(Message message, String regex) {
@@ -204,7 +204,7 @@ public class Main implements MessageListener {
         }
     }
 
-    private boolean sniperIsTheLeadingBidderAccordingTo(Message message) {
+    private static boolean sniperIsTheLeadingBidderAccordingTo(Message message) {
         return Main.SNIPER_XMPP_ID.equals(leadingBidderAccordingTo(message));
     }
 }
