@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertThat;
 
 public class JoinAuctionMessageTest {
@@ -25,5 +26,10 @@ public class JoinAuctionMessageTest {
 
         assertThat(joinAuctionMessage.getBody(), is(nullValue(String.class)));
         assertThat(joinAuctionMessage.getTo(), is(nullValue(String.class)));
+    }
+    
+    @Test
+    public void matcherMatchesMessage() throws Exception {
+        assertThat(Messages.joinAuction().getBody(), Messages.joinAuctionMatcher());
     }
 }
