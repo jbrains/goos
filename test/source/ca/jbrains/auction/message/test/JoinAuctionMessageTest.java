@@ -1,5 +1,6 @@
 package ca.jbrains.auction.message.test;
 
+import org.hamcrest.Matcher;
 import org.jivesoftware.smack.packet.Message;
 import org.junit.Test;
 
@@ -11,6 +12,10 @@ public class JoinAuctionMessageTest {
     public static class Messages {
         public static Message joinAuction() {
             return new Message();
+        }
+
+        public static Matcher<? super String> joinAuctionMatcher() {
+            return is(anything());
         }
     }
 

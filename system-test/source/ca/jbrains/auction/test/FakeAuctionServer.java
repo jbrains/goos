@@ -6,6 +6,8 @@ import org.hamcrest.Matcher;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
+import ca.jbrains.auction.message.test.JoinAuctionMessageTest.Messages;
+
 import static ca.jbrains.auction.test.Main.ITEM_ID_AS_LOGIN;
 import static org.hamcrest.Matchers.*;
 
@@ -61,11 +63,7 @@ public class FakeAuctionServer {
     }
 
     public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
-        messageListener.receivesAMessage(joinAuctionMessagePattern());
-    }
-
-    private static Matcher<? super String> joinAuctionMessagePattern() {
-        return is(anything());
+        messageListener.receivesAMessage(Messages.joinAuctionMatcher());
     }
 
     public void announceClosed() throws XMPPException {
