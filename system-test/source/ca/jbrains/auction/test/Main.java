@@ -102,8 +102,7 @@ public class Main implements MessageListener {
 
                         // non-UI work
                         if (isReportPriceMessage(message)) {
-                            if (!Main.SNIPER_XMPP_ID
-                                    .equals(leadingBidderAccordingTo(message))) {
+                            if (!sniperIsTheLeadingBidderAccordingTo(message)) {
                                 counterBid(chat);
                             }
                         }
@@ -194,14 +193,17 @@ public class Main implements MessageListener {
     @Override
     public void processMessage(Chat chat, Message message) {
         if (isReportPriceMessage(message)) {
-            if (Main.SNIPER_XMPP_ID.equals(leadingBidderAccordingTo(message))) {
+            if (sniperIsTheLeadingBidderAccordingTo(message)) {
                 signalSniperIsBidding();
-            } else {
             }
         } else if (isSniperBidMessage(message)) {
             signalSniperIsBidding();
         } else {
             signalAuctionClosed();
         }
+    }
+
+    private boolean sniperIsTheLeadingBidderAccordingTo(Message message) {
+        return Main.SNIPER_XMPP_ID.equals(leadingBidderAccordingTo(message));
     }
 }
