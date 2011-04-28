@@ -11,7 +11,7 @@ import javax.swing.border.LineBorder;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-public class Main {
+public class Main implements MessageListener {
     private static final String AUCTION_RESOURCE_NAME = "Auction";
 
     public static class MainWindow extends JFrame {
@@ -97,8 +97,9 @@ public class Main {
                     // easy
                     @Override
                     public void processMessage(Chat chat, Message message) {
-                        // REFACTOR Replace conditional with polymorphism in each
-                        
+                        // REFACTOR Replace conditional with polymorphism in
+                        // each
+
                         // non-UI work
                         if (isReportPriceMessage(message)) {
                             if (Main.SNIPER_XMPP_ID
@@ -122,9 +123,11 @@ public class Main {
                         } else {
                             signalAuctionClosed();
                         }
-}
+                    }
                 });
 
+        chat.addMessageListener(this);
+        
         this.dontGcMeBro = chat;
 
         // ASSUME This message doesn't need a specific body
@@ -202,5 +205,20 @@ public class Main {
                 ui.showStatus(MainWindow.STATUS_LOST);
             }
         });
+    }
+
+    @Override
+    public void processMessage(Chat chat, Message message) {
+        if (isReportPriceMessage(message)) {
+            if (Main.SNIPER_XMPP_ID
+                    .equals(leadingBidderAccordingTo(message))) {
+                signalSniperIsBidding();
+            } else {
+            }
+        } else if (isSniperBidMessage(message)) {
+            signalSniperIsBidding();
+        } else {
+            signalAuctionClosed();
+        }
     }
 }
