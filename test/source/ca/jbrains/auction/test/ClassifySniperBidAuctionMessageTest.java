@@ -10,26 +10,33 @@ import static org.junit.Assert.*;
 public class ClassifySniperBidAuctionMessageTest {
     @Test
     public void happyPath() throws Exception {
-        assertTrue(Main.isSniperBidMessage(SmackMessageObjectMother
+        assertTrue(isSniperBidMessage(SmackMessageObjectMother
                 .messageWithText("SOLVersion 1.1; Command: Bid; Price: 1098")));
     }
 
     @Test
     public void commandIsNotBid() throws Exception {
-        assertFalse(Main.isSniperBidMessage(SmackMessageObjectMother
+        assertFalse(isSniperBidMessage(SmackMessageObjectMother
                 .messageWithText("SOLVersion 1.1; Command: XXX"
                         + irrelevantDetails())));
     }
 
     @Test
     public void notAnSolMessage() throws Exception {
-        assertFalse(Main.isSniperBidMessage(SmackMessageObjectMother
+        assertFalse(isSniperBidMessage(SmackMessageObjectMother
                 .messageWithText("jbrains 3.0, bitchez; Command: Bid")));
     }
 
     @Test
     public void noBody() throws Exception {
-        assertFalse(Main.isSniperBidMessage(new Message()));
+        assertFalse(isSniperBidMessage(new Message()));
+    }
+
+    // REFACTOR Replace in tests with Messages.parse(message)
+    // expecting SniperBidsEvent objects.
+    private static boolean isSniperBidMessage(Message message) {
+        return Main.messageBodyMatchesRegex(message,
+                "SOLVersion 1.1.*Command: Bid.*");
     }
 
     private static String irrelevantDetails() {

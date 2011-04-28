@@ -11,7 +11,7 @@ import javax.swing.border.LineBorder;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-import ca.jbrains.auction.message.Messages;
+import ca.jbrains.auction.message.*;
 
 public class Main implements MessageListener {
     private static final String AUCTION_RESOURCE_NAME = "Auction";
@@ -102,9 +102,18 @@ public class Main implements MessageListener {
                         // REFACTOR Replace conditional with polymorphism in
                         // each
 
-                        // non-UI work
-                        if (isReportPriceMessage(message)) {
-                            if (!sniperIsTheLeadingBidderAccordingTo(message)) {
+                        // SMELL This duplicates code in Main's message
+                        // listener,
+                        // which probably means an abstraction in the middle is
+                        // missing.
+                        // REFACTOR? MessageListener parses messages and fires
+                        // auction events; AuctionEventListener updates UI or
+                        // sends chat message
+                        final Object event = Messages.parse(message);
+                        if (event instanceof BiddingState) {
+                            BiddingState biddingState = (BiddingState) event;
+                            if (!Main.SNIPER_XMPP_ID.equals(biddingState
+                                    .getBidderName())) {
                                 counterBid(chat);
                             }
                         }
@@ -160,17 +169,12 @@ public class Main implements MessageListener {
         }
     }
 
-    private static boolean messageBodyMatchesRegex(Message message, String regex) {
+    public static boolean messageBodyMatchesRegex(Message message, String regex) {
         final String body = message.getBody();
         if (body == null)
             return false;
 
         return Pattern.compile(regex).matcher(body).matches();
-    }
-
-    public static boolean isSniperBidMessage(Message message) {
-        return messageBodyMatchesRegex(message,
-                "SOLVersion 1.1.*Command: Bid.*");
     }
 
     public void signalSniperIsBidding() {
@@ -193,18 +197,20 @@ public class Main implements MessageListener {
 
     @Override
     public void processMessage(Chat chat, Message message) {
-        if (isReportPriceMessage(message)) {
-            if (!sniperIsTheLeadingBidderAccordingTo(message)) {
+        // SMELL This duplicates code in joinAuction()'s message listener,
+        // which probably means an abstraction in the middle is
+        // missing.
+        // REFACTOR? MessageListener parses messages and fires
+        // auction events; AuctionEventListener updates UI or
+        // sends chat message
+        Object event = Messages.parse(message);
+        if (event instanceof BiddingState) {
+            BiddingState biddingState = (BiddingState) event;
+            if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
                 signalSniperIsBidding();
             }
-        } else if (isSniperBidMessage(message)) {
-            signalSniperIsBidding();
         } else {
             signalAuctionClosed();
         }
-    }
-
-    private static boolean sniperIsTheLeadingBidderAccordingTo(Message message) {
-        return Main.SNIPER_XMPP_ID.equals(leadingBidderAccordingTo(message));
     }
 }
