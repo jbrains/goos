@@ -98,12 +98,21 @@ public class Main {
                     @Override
                     public void processMessage(Chat chat, Message message) {
                         // REFACTOR Replace conditional with polymorphism
-                        if (isReportPriceMessage(message))
-                            handleReportPriceMessage(chat, message);
-                        else if (isSniperBidMessage(message))
+                        if (isReportPriceMessage(message)) {
+                            // SMELL In one body, update the UI; in the other,
+                            // send a new bid. That
+                            // can't be right.
+                            if (Main.SNIPER_XMPP_ID
+                                    .equals(leadingBidderAccordingTo(message))) {
+                                signalSniperIsBidding();
+                            } else {
+                                counterBid(chat);
+                            }
+                        } else if (isSniperBidMessage(message)) {
                             signalSniperIsBidding();
-                        else
+                        } else {
                             signalAuctionClosed();
+                        }
                     }
                 });
 
@@ -135,16 +144,6 @@ public class Main {
         connection.connect();
         connection.login(username, password, AUCTION_RESOURCE_NAME);
         return connection;
-    }
-
-    // SMELL In one body, update the UI; in the other, send a new bid. That
-    // can't be right.
-    public void handleReportPriceMessage(Chat chat, Message message) {
-        if (Main.SNIPER_XMPP_ID.equals(leadingBidderAccordingTo(message))) {
-            signalSniperIsBidding();
-        } else {
-            counterBid(chat);
-        }
     }
 
     public static String leadingBidderAccordingTo(Message reportPriceMessage) {
