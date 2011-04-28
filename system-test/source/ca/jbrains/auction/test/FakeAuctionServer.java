@@ -61,8 +61,11 @@ public class FakeAuctionServer {
     }
 
     public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
-        // ASSUME All messages are join requests
-        messageListener.receivesAMessage();
+        messageListener.receivesAMessage(joinAuctionMessagePattern());
+    }
+
+    private static Matcher<? super String> joinAuctionMessagePattern() {
+        return is(anything());
     }
 
     public void announceClosed() throws XMPPException {

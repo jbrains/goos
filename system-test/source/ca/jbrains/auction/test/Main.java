@@ -113,8 +113,11 @@ public class Main implements MessageListener {
 
         this.dontGcMeBro = chat;
 
-        // ASSUME This message doesn't need a specific body
-        chat.sendMessage(new Message());
+        chat.sendMessage(joinAuctionMessage());
+    }
+
+    private static Message joinAuctionMessage() {
+        return new Message();
     }
 
     private void disconnectWhenUiCloses(final XMPPConnection connection) {
