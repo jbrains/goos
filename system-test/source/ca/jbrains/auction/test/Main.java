@@ -11,7 +11,7 @@ import javax.swing.border.LineBorder;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-import ca.jbrains.auction.message.test.JoinAuctionMessageTest.Messages;
+import ca.jbrains.auction.message.Messages;
 
 public class Main implements MessageListener {
     private static final String AUCTION_RESOURCE_NAME = "Auction";

@@ -15,11 +15,11 @@ public class SmackMessageContentsTest {
                 SmackMessageObjectMother.messageWithText(
                         "SOLVersion 1.1; Command: Bid; Price: 1098").getBody());
     }
-    
+
     @Test
     public void incorrectWaysToCreateAMessage() throws Exception {
         assertNull(new Message("not the body").getBody());
-        
+
         // in fact...
         assertEquals("not the body", new Message("not the body").getTo());
     }

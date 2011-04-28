@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-import ca.jbrains.auction.message.test.JoinAuctionMessageTest.Messages;
+import ca.jbrains.auction.message.Messages;
 import static ca.jbrains.auction.test.Main.ITEM_ID_AS_LOGIN;
 import static org.hamcrest.Matchers.*;
 
@@ -84,14 +84,8 @@ public class FakeAuctionServer {
     public void reportPrice(int price, int increment, String bidder)
             throws XMPPException {
 
-        currentChat.sendMessage(reportPriceMessage(price, increment, bidder));
-    }
-
-    private static String reportPriceMessage(int price, int increment,
-            String bidder) {
-        return String
-                .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: %d; Increment: %d; Bidder: %s",
-                        price, increment, bidder);
+        currentChat.sendMessage(Messages.reportPriceMessageBody(price,
+                increment, bidder));
     }
 
     public void hasReceivedBid(int bid, String bidder)
@@ -101,7 +95,8 @@ public class FakeAuctionServer {
         messageListener.receivesAMessage(matchingReceivedBidPattern());
         try {
             // ASSUME Bid increment is 98
-            currentChat.sendMessage(reportPriceMessage(bid, 98, bidder));
+            currentChat.sendMessage(Messages.reportPriceMessageBody(bid, 98,
+                    bidder));
         } catch (XMPPException reported) {
             reported.printStackTrace();
         }
