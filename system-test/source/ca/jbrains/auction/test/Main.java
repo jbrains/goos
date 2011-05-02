@@ -14,6 +14,46 @@ import org.jivesoftware.smack.packet.Message;
 import ca.jbrains.auction.message.*;
 
 public class Main {
+    public interface AuctionEventListener {
+        void handleNewBiddingState(BiddingState biddingState);
+
+        void handleGenericEvent(Object object);
+    }
+
+    public static class AuctionEventSourceMessageListener implements
+            MessageListener {
+        private final List<AuctionEventListener> listeners;
+
+        public AuctionEventSourceMessageListener() {
+            this(new ArrayList<AuctionEventListener>());
+        }
+
+        public AuctionEventSourceMessageListener(
+                List<AuctionEventListener> listeners) {
+
+            this.listeners = listeners;
+        }
+
+        public void addListener(AuctionEventListener listener) {
+            listeners.add(listener);
+        }
+
+        @Override
+        public void processMessage(Chat chat, Message message) {
+            final Object event = Messages.parse(message);
+            if (event instanceof BiddingState) {
+                BiddingState biddingState = (BiddingState) event;
+                for (AuctionEventListener each : listeners) {
+                    each.handleNewBiddingState(biddingState);
+                }
+            } else {
+                for (AuctionEventListener each : listeners) {
+                    each.handleGenericEvent(event);
+                }
+            }
+        }
+    }
+
     public static abstract class FooMessageListener implements MessageListener {
         @Override
         public void processMessage(Chat chat, Message message) {
@@ -157,11 +197,38 @@ public class Main {
             throws XMPPException {
 
         disconnectWhenUiCloses(connection);
-        final Chat chat = connection.getChatManager().createChat(
-                auctionId(itemId, connection),
-                new BidsForSniperMessageListener(this));
+        final AuctionEventSourceMessageListener auctionEventSource = new AuctionEventSourceMessageListener();
 
-        chat.addMessageListener(new UpdatesMainWindowMessageListener(this));
+        final Chat chat = connection.getChatManager().createChat(
+                auctionId(itemId, connection), auctionEventSource);
+
+        auctionEventSource.addListener(new AuctionEventListener() {
+            @Override
+            public void handleNewBiddingState(BiddingState biddingState) {
+                if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
+                    counterBid(chat);
+                }
+            }
+
+            @Override
+            public void handleGenericEvent(Object object) {
+                // I can ignore this
+            }
+        });
+
+        auctionEventSource.addListener(new AuctionEventListener() {
+            @Override
+            public void handleNewBiddingState(BiddingState biddingState) {
+                if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
+                    signalSniperIsBidding();
+                }
+            }
+
+            @Override
+            public void handleGenericEvent(Object object) {
+                signalAuctionClosed();
+            }
+        });
 
         this.dontGcMeBro = chat;
 
