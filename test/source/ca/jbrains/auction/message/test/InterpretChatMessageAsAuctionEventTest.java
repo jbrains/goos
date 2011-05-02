@@ -12,4 +12,9 @@ public class InterpretChatMessageAsAuctionEventTest {
     @Test
     public void emptyMessage() throws Exception {
     }
+
+    @Ignore("TODO")
+    @Test
+    public void auctionClosedMessage() throws Exception {
+    }
 }
