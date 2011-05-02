@@ -14,10 +14,22 @@ import org.jivesoftware.smack.packet.Message;
 import ca.jbrains.auction.message.*;
 
 public class Main {
-    public static class FooMessageListener implements MessageListener {
+    public static abstract class FooMessageListener implements MessageListener {
         @Override
         public void processMessage(Chat chat, Message message) {
+            final Object event = Messages.parse(message);
+            if (event instanceof BiddingState) {
+                BiddingState biddingState = (BiddingState) event;
+                handleBiddingStateEvent(chat, biddingState);
+            } else {
+                handleAllOtherEvents();
+            }
         }
+
+        protected abstract void handleAllOtherEvents();
+
+        protected abstract void handleBiddingStateEvent(Chat chat,
+                BiddingState biddingState);
     }
 
     public static final class BidsForSniperMessageListener extends
@@ -30,21 +42,12 @@ public class Main {
         }
 
         @Override
-        public void processMessage(Chat chat, Message message) {
-            final Object event = Messages.parse(message);
-            if (event instanceof BiddingState) {
-                BiddingState biddingState = (BiddingState) event;
-                handleBiddingStateEvent(chat, biddingState);
-            } else {
-                handleAllOtherEvents();
-            }
-        }
-
-        private void handleAllOtherEvents() {
+        protected void handleAllOtherEvents() {
             // I don't need to do anything here
         }
 
-        private void handleBiddingStateEvent(Chat chat,
+        @Override
+        protected void handleBiddingStateEvent(Chat chat,
                 BiddingState biddingState) {
             if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
                 main.counterBid(chat);
@@ -62,21 +65,12 @@ public class Main {
         }
 
         @Override
-        public void processMessage(Chat chat, Message message) {
-            final Object event = Messages.parse(message);
-            if (event instanceof BiddingState) {
-                BiddingState biddingState = (BiddingState) event;
-                handleBiddingStateEvent(chat, biddingState);
-            } else {
-                handleAllOtherEvents();
-            }
-        }
-
-        private void handleAllOtherEvents() {
+        protected void handleAllOtherEvents() {
             main.signalAuctionClosed();
         }
 
-        private void handleBiddingStateEvent(
+        @Override
+        protected void handleBiddingStateEvent(
                 @SuppressWarnings("unused") Chat chat, BiddingState biddingState) {
             if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
                 main.signalSniperIsBidding();
