@@ -13,7 +13,68 @@ import org.jivesoftware.smack.packet.Message;
 
 import ca.jbrains.auction.message.*;
 
-public class Main implements MessageListener {
+public class Main {
+    public static final class BidsForSniperMessageListener implements
+            MessageListener {
+
+        private Main main;
+
+        public BidsForSniperMessageListener(Main main) {
+            this.main = main;
+        }
+
+        // SMELL This nested class makes cyclic dependencies too
+        // easy
+        @Override
+        public void processMessage(Chat chat, Message message) {
+            // REFACTOR Replace conditional with polymorphism in
+            // each
+
+            // SMELL This duplicates code in Main's message
+            // listener,
+            // which probably means an abstraction in the middle is
+            // missing.
+            // REFACTOR? MessageListener parses messages and fires
+            // auction events; AuctionEventListener updates UI or
+            // sends chat message
+            final Object event = Messages.parse(message);
+            if (event instanceof BiddingState) {
+                BiddingState biddingState = (BiddingState) event;
+                if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
+                    main.counterBid(chat);
+                }
+            }
+        }
+    }
+
+    public static class UpdatesMainWindowMessageListener implements
+            MessageListener {
+        private final Main main;
+
+        public UpdatesMainWindowMessageListener(Main main) {
+            this.main = main;
+        }
+
+        @Override
+        public void processMessage(Chat chat, Message message) {
+            // SMELL This duplicates code in joinAuction()'s message listener,
+            // which probably means an abstraction in the middle is
+            // missing.
+            // REFACTOR? MessageListener parses messages and fires
+            // auction events; AuctionEventListener updates UI or
+            // sends chat message
+            Object event = Messages.parse(message);
+            if (event instanceof BiddingState) {
+                BiddingState biddingState = (BiddingState) event;
+                if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
+                    main.signalSniperIsBidding();
+                }
+            } else {
+                main.signalAuctionClosed();
+            }
+        }
+    }
+
     private static final String AUCTION_RESOURCE_NAME = "Auction";
 
     public static class MainWindow extends JFrame {
@@ -94,33 +155,10 @@ public class Main implements MessageListener {
 
         disconnectWhenUiCloses(connection);
         final Chat chat = connection.getChatManager().createChat(
-                auctionId(itemId, connection), new MessageListener() {
-                    // SMELL This nested class makes cyclic dependencies too
-                    // easy
-                    @Override
-                    public void processMessage(Chat chat, Message message) {
-                        // REFACTOR Replace conditional with polymorphism in
-                        // each
+                auctionId(itemId, connection),
+                new BidsForSniperMessageListener(this));
 
-                        // SMELL This duplicates code in Main's message
-                        // listener,
-                        // which probably means an abstraction in the middle is
-                        // missing.
-                        // REFACTOR? MessageListener parses messages and fires
-                        // auction events; AuctionEventListener updates UI or
-                        // sends chat message
-                        final Object event = Messages.parse(message);
-                        if (event instanceof BiddingState) {
-                            BiddingState biddingState = (BiddingState) event;
-                            if (!Main.SNIPER_XMPP_ID.equals(biddingState
-                                    .getBidderName())) {
-                                counterBid(chat);
-                            }
-                        }
-                    }
-                });
-
-        chat.addMessageListener(this);
+        chat.addMessageListener(new UpdatesMainWindowMessageListener(this));
 
         this.dontGcMeBro = chat;
 
@@ -193,24 +231,5 @@ public class Main implements MessageListener {
                 ui.showStatus(MainWindow.STATUS_LOST);
             }
         });
-    }
-
-    @Override
-    public void processMessage(Chat chat, Message message) {
-        // SMELL This duplicates code in joinAuction()'s message listener,
-        // which probably means an abstraction in the middle is
-        // missing.
-        // REFACTOR? MessageListener parses messages and fires
-        // auction events; AuctionEventListener updates UI or
-        // sends chat message
-        Object event = Messages.parse(message);
-        if (event instanceof BiddingState) {
-            BiddingState biddingState = (BiddingState) event;
-            if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
-                signalSniperIsBidding();
-            }
-        } else {
-            signalAuctionClosed();
-        }
     }
 }
