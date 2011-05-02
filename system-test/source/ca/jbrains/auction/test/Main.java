@@ -22,16 +22,11 @@ public class Main {
 
     public static class AuctionEventSourceMessageListener implements
             MessageListener {
+
         private final List<AuctionEventListener> listeners;
 
         public AuctionEventSourceMessageListener() {
-            this(new ArrayList<AuctionEventListener>());
-        }
-
-        public AuctionEventSourceMessageListener(
-                List<AuctionEventListener> listeners) {
-
-            this.listeners = listeners;
+            this.listeners = new ArrayList<AuctionEventListener>();
         }
 
         public void addListener(AuctionEventListener listener) {
@@ -40,6 +35,7 @@ public class Main {
 
         @Override
         public void processMessage(Chat chat, Message message) {
+            // SMELL Duplicated loops
             final Object event = Messages.parse(message);
             if (event instanceof BiddingState) {
                 BiddingState biddingState = (BiddingState) event;
@@ -50,70 +46,6 @@ public class Main {
                 for (AuctionEventListener each : listeners) {
                     each.handleGenericEvent(event);
                 }
-            }
-        }
-    }
-
-    public static abstract class FooMessageListener implements MessageListener {
-        @Override
-        public void processMessage(Chat chat, Message message) {
-            final Object event = Messages.parse(message);
-            if (event instanceof BiddingState) {
-                BiddingState biddingState = (BiddingState) event;
-                handleBiddingStateEvent(chat, biddingState);
-            } else {
-                handleAllOtherEvents();
-            }
-        }
-
-        protected abstract void handleAllOtherEvents();
-
-        protected abstract void handleBiddingStateEvent(Chat chat,
-                BiddingState biddingState);
-    }
-
-    public static final class BidsForSniperMessageListener extends
-            FooMessageListener {
-
-        private final Main main;
-
-        public BidsForSniperMessageListener(Main main) {
-            this.main = main;
-        }
-
-        @Override
-        protected void handleAllOtherEvents() {
-            // I don't need to do anything here
-        }
-
-        @Override
-        protected void handleBiddingStateEvent(Chat chat,
-                BiddingState biddingState) {
-            if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
-                main.counterBid(chat);
-            }
-        }
-    }
-
-    public static class UpdatesMainWindowMessageListener extends
-            FooMessageListener {
-
-        private final Main main;
-
-        public UpdatesMainWindowMessageListener(Main main) {
-            this.main = main;
-        }
-
-        @Override
-        protected void handleAllOtherEvents() {
-            main.signalAuctionClosed();
-        }
-
-        @Override
-        protected void handleBiddingStateEvent(
-                @SuppressWarnings("unused") Chat chat, BiddingState biddingState) {
-            if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
-                main.signalSniperIsBidding();
             }
         }
     }
@@ -197,14 +129,18 @@ public class Main {
             throws XMPPException {
 
         disconnectWhenUiCloses(connection);
+
         final AuctionEventSourceMessageListener auctionEventSource = new AuctionEventSourceMessageListener();
 
         final Chat chat = connection.getChatManager().createChat(
                 auctionId(itemId, connection), auctionEventSource);
 
+        // SMELL? Programming by accident that I can't add these listeners in
+        // the constructor of the Auction Event Source?
         auctionEventSource.addListener(new AuctionEventListener() {
             @Override
             public void handleNewBiddingState(BiddingState biddingState) {
+                // REFACTOR? Should "sniper now losing" be an event?
                 if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
                     counterBid(chat);
                 }
@@ -219,6 +155,7 @@ public class Main {
         auctionEventSource.addListener(new AuctionEventListener() {
             @Override
             public void handleNewBiddingState(BiddingState biddingState) {
+                // REFACTOR? Should "sniper now losing" be an event?
                 if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
                     signalSniperIsBidding();
                 }
@@ -226,6 +163,7 @@ public class Main {
 
             @Override
             public void handleGenericEvent(Object object) {
+                // REFACTOR Introduce an "auction closed" event
                 signalAuctionClosed();
             }
         });
