@@ -36,9 +36,14 @@ public class Main {
             final Object event = Messages.parse(message);
             if (event instanceof BiddingState) {
                 BiddingState biddingState = (BiddingState) event;
-                if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
-                    main.counterBid(chat);
-                }
+                handleBiddingStateEvent(chat, biddingState);
+            }
+        }
+
+        private void handleBiddingStateEvent(Chat chat,
+                BiddingState biddingState) {
+            if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
+                main.counterBid(chat);
             }
         }
     }
@@ -57,11 +62,19 @@ public class Main {
             Object event = Messages.parse(message);
             if (event instanceof BiddingState) {
                 BiddingState biddingState = (BiddingState) event;
-                if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
-                    main.signalSniperIsBidding();
-                }
+                handleBiddingStateEvent(biddingState);
             } else {
-                main.signalAuctionClosed();
+                handleAllOtherEvents();
+            }
+        }
+
+        private void handleAllOtherEvents() {
+            main.signalAuctionClosed();
+        }
+
+        private void handleBiddingStateEvent(BiddingState biddingState) {
+            if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
+                main.signalSniperIsBidding();
             }
         }
     }
