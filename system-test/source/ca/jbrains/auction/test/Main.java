@@ -114,6 +114,11 @@ public class Main {
             public void handleGenericEvent(Object object) {
                 // I can ignore this
             }
+
+            @Override
+            public void handleJoinAuctionEvent() {
+                throw new UnsupportedOperationException();
+            }
         });
 
         auctionEventSource.addListener(new AuctionEventListener() {
@@ -129,6 +134,11 @@ public class Main {
             public void handleGenericEvent(Object object) {
                 // REFACTOR Introduce an "auction closed" event
                 signalAuctionClosed();
+            }
+
+            @Override
+            public void handleJoinAuctionEvent() {
+                throw new UnsupportedOperationException();
             }
         });
 

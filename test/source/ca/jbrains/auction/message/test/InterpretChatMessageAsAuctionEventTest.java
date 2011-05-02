@@ -1,13 +1,33 @@
 package ca.jbrains.auction.message.test;
 
+import org.jivesoftware.smack.packet.Message;
+import org.jmock.*;
 import org.junit.*;
 
-import static org.junit.Assert.*;
+import ca.jbrains.auction.message.*;
 
 public class InterpretChatMessageAsAuctionEventTest {
+    private Mockery mockery = new Mockery();
+
     @Test
     public void joinAuctionMessage() throws Exception {
-        fail("Aha! We use empty message to mean both 'I joined an auction' and 'auction closed'. This can't last.");
+        final AuctionEventListener auctionEventListener = mockery
+                .mock(AuctionEventListener.class);
+
+        mockery.checking(new Expectations() {
+            {
+                oneOf(auctionEventListener).handleJoinAuctionEvent();
+            }
+        });
+
+        AuctionEventSourceMessageListener auctionEventSourceMessageListener = new AuctionEventSourceMessageListener();
+        auctionEventSourceMessageListener.addListener(auctionEventListener);
+
+        Message joinAuctionMessage = new Message();
+        joinAuctionMessage.setBody("SOLVersion: 1.1; Command: JOIN;");
+
+        auctionEventSourceMessageListener.processMessage(null,
+                joinAuctionMessage);
     }
 
     @Ignore("TODO")
