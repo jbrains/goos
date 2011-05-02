@@ -22,15 +22,13 @@ public class Main {
 
     public static final class BidsForSniperMessageListener extends
             FooMessageListener {
-        
+
         private final Main main;
 
         public BidsForSniperMessageListener(Main main) {
             this.main = main;
         }
 
-        // SMELL This nested class makes cyclic dependencies too
-        // easy
         @Override
         public void processMessage(Chat chat, Message message) {
             final Object event = Messages.parse(message);
@@ -59,10 +57,10 @@ public class Main {
 
         @Override
         public void processMessage(Chat chat, Message message) {
-            Object event = Messages.parse(message);
+            final Object event = Messages.parse(message);
             if (event instanceof BiddingState) {
                 BiddingState biddingState = (BiddingState) event;
-                handleBiddingStateEvent(biddingState);
+                handleBiddingStateEvent(chat, biddingState);
             } else {
                 handleAllOtherEvents();
             }
@@ -72,7 +70,8 @@ public class Main {
             main.signalAuctionClosed();
         }
 
-        private void handleBiddingStateEvent(BiddingState biddingState) {
+        private void handleBiddingStateEvent(
+                @SuppressWarnings("unused") Chat chat, BiddingState biddingState) {
             if (!Main.SNIPER_XMPP_ID.equals(biddingState.getBidderName())) {
                 main.signalSniperIsBidding();
             }
