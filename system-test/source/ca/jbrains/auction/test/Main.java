@@ -14,10 +14,16 @@ import org.jivesoftware.smack.packet.Message;
 import ca.jbrains.auction.message.*;
 
 public class Main {
-    public static final class BidsForSniperMessageListener implements
-            MessageListener {
+    public static class FooMessageListener implements MessageListener {
+        @Override
+        public void processMessage(Chat chat, Message message) {
+        }
+    }
 
-        private Main main;
+    public static final class BidsForSniperMessageListener extends
+            FooMessageListener {
+        
+        private final Main main;
 
         public BidsForSniperMessageListener(Main main) {
             this.main = main;
@@ -27,16 +33,6 @@ public class Main {
         // easy
         @Override
         public void processMessage(Chat chat, Message message) {
-            // REFACTOR Replace conditional with polymorphism in
-            // each
-
-            // SMELL This duplicates code in Main's message
-            // listener,
-            // which probably means an abstraction in the middle is
-            // missing.
-            // REFACTOR? MessageListener parses messages and fires
-            // auction events; AuctionEventListener updates UI or
-            // sends chat message
             final Object event = Messages.parse(message);
             if (event instanceof BiddingState) {
                 BiddingState biddingState = (BiddingState) event;
@@ -47,8 +43,9 @@ public class Main {
         }
     }
 
-    public static class UpdatesMainWindowMessageListener implements
-            MessageListener {
+    public static class UpdatesMainWindowMessageListener extends
+            FooMessageListener {
+
         private final Main main;
 
         public UpdatesMainWindowMessageListener(Main main) {
@@ -57,12 +54,6 @@ public class Main {
 
         @Override
         public void processMessage(Chat chat, Message message) {
-            // SMELL This duplicates code in joinAuction()'s message listener,
-            // which probably means an abstraction in the middle is
-            // missing.
-            // REFACTOR? MessageListener parses messages and fires
-            // auction events; AuctionEventListener updates UI or
-            // sends chat message
             Object event = Messages.parse(message);
             if (event instanceof BiddingState) {
                 BiddingState biddingState = (BiddingState) event;
