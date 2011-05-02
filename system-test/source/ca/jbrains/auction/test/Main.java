@@ -35,7 +35,13 @@ public class Main {
             if (event instanceof BiddingState) {
                 BiddingState biddingState = (BiddingState) event;
                 handleBiddingStateEvent(chat, biddingState);
+            } else {
+                handleAllOtherEvents();
             }
+        }
+
+        private void handleAllOtherEvents() {
+            // I don't need to do anything here
         }
 
         private void handleBiddingStateEvent(Chat chat,
