@@ -1,6 +1,5 @@
 package ca.jbrains.auction.message.test;
 
-import org.jivesoftware.smack.packet.Message;
 import org.jmock.*;
 import org.junit.*;
 
@@ -23,11 +22,8 @@ public class InterpretChatMessageAsAuctionEventTest {
         AuctionEventSourceMessageListener auctionEventSourceMessageListener = new AuctionEventSourceMessageListener();
         auctionEventSourceMessageListener.addListener(auctionEventListener);
 
-        Message joinAuctionMessage = new Message();
-        joinAuctionMessage.setBody("SOLVersion: 1.1; Command: JOIN;");
-
         auctionEventSourceMessageListener.processMessage(null,
-                joinAuctionMessage);
+                Messages.joinAuction());
     }
 
     @Ignore("TODO")

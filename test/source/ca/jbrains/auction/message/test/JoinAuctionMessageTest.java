@@ -13,7 +13,7 @@ public class JoinAuctionMessageTest {
     public void create() throws Exception {
         final Message joinAuctionMessage = Messages.joinAuction();
 
-        assertThat(joinAuctionMessage.getBody(), is(nullValue(String.class)));
+        assertThat(joinAuctionMessage.getBody(), equalTo("SOLVersion: 1.1; Command: JOIN;"));
         assertThat(joinAuctionMessage.getTo(), is(nullValue(String.class)));
     }
 

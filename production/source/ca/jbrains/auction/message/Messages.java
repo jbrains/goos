@@ -8,7 +8,9 @@ import static org.hamcrest.Matchers.*;
 
 public class Messages {
     public static Message joinAuction() {
-        return new Message();
+        final Message joinAuctionMessage = new Message();
+        joinAuctionMessage.setBody("SOLVersion: 1.1; Command: JOIN;");
+        return joinAuctionMessage;
     }
 
     // SMELL? I'm not sure I like the Hamcrest Matcher here.

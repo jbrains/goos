@@ -20,6 +20,15 @@ public class AuctionEventSourceMessageListener implements
 
     @Override
     public void processMessage(Chat chat, Message message) {
+        // Try migrating message-parsing behavior here
+        final String body = message.getBody();
+        if ("SOLVersion: 1.1; Command: JOIN;".equals(body)) {
+            for (AuctionEventListener each : listeners) {
+                each.handleJoinAuctionEvent();
+            }
+            return;
+        }
+        
         // SMELL Duplicated loops
         final Object event = Messages.parse(message);
         if (event instanceof BiddingState) {
