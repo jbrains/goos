@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="system-test/vendor/smack.jar" sourcepath="/Users/jbrains/ThirdParty/smack/source"/>
 	<classpathentry kind="lib" path="production/vendor/lombok-0.10.0-BETA2-HEAD.jar"/>
 	<classpathentry kind="lib" path="production/vendor/guava-r09.jar" sourcepath="production/vendor/guava-src-r09.zip"/>
+	<classpathentry kind="lib" path="system-test/vendor/smackx.jar"/>
 	<classpathentry kind="output" path="test/classes"/>
 </classpath>
