@@ -5,8 +5,7 @@ import java.util.*;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-public class AuctionEventSourceMessageListener implements
-        MessageListener {
+public class AuctionEventSourceMessageListener implements MessageListener {
 
     private final List<AuctionEventListener> listeners;
 
@@ -22,13 +21,13 @@ public class AuctionEventSourceMessageListener implements
     public void processMessage(Chat chat, Message message) {
         // Try migrating message-parsing behavior here
         final String body = message.getBody();
-        if ("SOLVersion: 1.1; Command: JOIN;".equals(body)) {
+        if (Messages.joinAuctionBodyMatcher().matches(body)) {
             for (AuctionEventListener each : listeners) {
                 each.handleJoinAuctionEvent();
             }
             return;
         }
-        
+
         // SMELL Duplicated loops
         final Object event = Messages.parse(message);
         if (event instanceof BiddingState) {
