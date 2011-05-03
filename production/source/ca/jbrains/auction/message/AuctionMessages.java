@@ -2,29 +2,23 @@ package ca.jbrains.auction.message;
 
 import java.util.regex.Pattern;
 
+import org.hamcrest.Matcher;
 import org.jivesoftware.smack.packet.Message;
 
 import static org.hamcrest.Matchers.*;
 
-public class Messages {
+public class AuctionMessages {
     public static Message joinAuction() {
-        final Message joinAuctionMessage = new Message();
-        joinAuctionMessage.setBody("SOLVersion: 1.1; Command: JOIN;");
-        return joinAuctionMessage;
+        return SmackMessage.withBody("SOLVersion: 1.1; Command: JOIN;");
     }
 
     // SMELL? I'm not sure I like the Hamcrest Matcher here.
     public static org.hamcrest.Matcher<? super String> joinAuctionBodyMatcher() {
-        return both(containsString("SOLVersion: 1.1")).and(
-                containsString("Command: JOIN"));
+        return both(containsSolMarker()).and(containsString("Command: JOIN"));
     }
 
-    public static String reportPriceMessageBody(int price, int increment,
-            String bidder) {
-
-        return String
-                .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: %d; Increment: %d; Bidder: %s",
-                        price, increment, bidder);
+    private static Matcher<String> containsSolMarker() {
+        return containsString("SOLVersion: 1.1");
     }
 
     // Eventually this return type will be more strict than Object
@@ -55,5 +49,22 @@ public class Messages {
         final String bidderName = matcher.group(3).trim();
 
         return new BiddingState(currentPrice, bidIncrement, bidderName);
+    }
+
+    public static Message auctionClosed() {
+        return SmackMessage.withBody("SOLVersion: 1.1; Event: CLOSE;");
+    }
+
+    public static Matcher<? super String> auctionClosedBodyMatcher() {
+        return both(containsSolMarker()).and(containsString("Event: CLOSE"));
+    }
+
+    public static Message reportPrice(int price, int increment,
+            String bidderName) {
+
+        return SmackMessage
+                .withBody(String
+                        .format("SOLVersion: 1.1; Event: PRICE; CurrentPrice: %d; Increment: %d; Bidder: %s",
+                                price, increment, bidderName));
     }
 }

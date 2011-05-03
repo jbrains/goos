@@ -6,7 +6,7 @@ import org.hamcrest.Matcher;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
-import ca.jbrains.auction.message.Messages;
+import ca.jbrains.auction.message.AuctionMessages;
 import static ca.jbrains.auction.test.Main.ITEM_ID_AS_LOGIN;
 import static org.hamcrest.Matchers.*;
 
@@ -62,7 +62,8 @@ public class FakeAuctionServer {
     }
 
     public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
-        messageListener.receivesAMessage(Messages.joinAuctionBodyMatcher());
+        messageListener.receivesAMessage(AuctionMessages
+                .joinAuctionBodyMatcher());
     }
 
     public void announceClosed() throws XMPPException {
@@ -84,8 +85,8 @@ public class FakeAuctionServer {
     public void reportPrice(int price, int increment, String bidder)
             throws XMPPException {
 
-        currentChat.sendMessage(Messages.reportPriceMessageBody(price,
-                increment, bidder));
+        currentChat.sendMessage(AuctionMessages.reportPrice(price, increment,
+                bidder));
     }
 
     public void hasReceivedBid(int bid, String bidder)
@@ -95,8 +96,8 @@ public class FakeAuctionServer {
         messageListener.receivesAMessage(matchingReceivedBidPattern());
         try {
             // ASSUME Bid increment is 98
-            currentChat.sendMessage(Messages.reportPriceMessageBody(bid, 98,
-                    bidder));
+            currentChat.sendMessage(AuctionMessages
+                    .reportPrice(bid, 98, bidder));
         } catch (XMPPException reported) {
             reported.printStackTrace();
         }

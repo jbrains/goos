@@ -7,4 +7,6 @@ public interface AuctionEventListener {
     void handleGenericEvent(Object object);
 
     void handleJoinAuctionEvent();
+
+    void handleAuctionClosed();
 }

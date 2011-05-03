@@ -3,7 +3,7 @@ package ca.jbrains.auction.test;
 import org.jivesoftware.smack.packet.Message;
 import org.junit.Test;
 
-import ca.jbrains.auction.smack.SmackMessageObjectMother;
+import ca.jbrains.auction.message.SmackMessage;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,8 +19,8 @@ public class UnpackLeadingBidderFromReportPriceMessageTest {
     public void noBidderAttribute() throws Exception {
         assertEquals(
                 null,
-                Main.leadingBidderAccordingTo(SmackMessageObjectMother
-                        .messageWithText("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; NotBidder: jbrains")));
+                Main.leadingBidderAccordingTo(SmackMessage
+                        .withBody("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; NotBidder: jbrains")));
     }
 
     @Test
@@ -45,8 +45,8 @@ public class UnpackLeadingBidderFromReportPriceMessageTest {
     }
 
     private Message reportPriceMessageWithBidderNamed(String bidderName) {
-        return SmackMessageObjectMother
-                .messageWithText("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: "
+        return SmackMessage
+                .withBody("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 1000; Increment: 98; Bidder: "
                         + bidderName);
     }
 }

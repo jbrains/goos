@@ -34,6 +34,6 @@ public class InterpretMessageAsAuctionEventTest {
     }
 
     private BiddingState parse(String messageBody) {
-        return (BiddingState) Messages.parseBody(messageBody);
+        return (BiddingState) AuctionMessages.parseBody(messageBody);
     }
 }

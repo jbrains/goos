@@ -119,6 +119,11 @@ public class Main {
             public void handleJoinAuctionEvent() {
                 throw new UnsupportedOperationException();
             }
+
+            @Override
+            public void handleAuctionClosed() {
+                throw new UnsupportedOperationException();
+            }
         });
 
         auctionEventSource.addListener(new AuctionEventListener() {
@@ -140,11 +145,16 @@ public class Main {
             public void handleJoinAuctionEvent() {
                 throw new UnsupportedOperationException();
             }
+
+            @Override
+            public void handleAuctionClosed() {
+                throw new UnsupportedOperationException();
+            }
         });
 
         this.dontGcMeBro = chat;
 
-        chat.sendMessage(Messages.joinAuction());
+        chat.sendMessage(AuctionMessages.joinAuction());
     }
 
     private void disconnectWhenUiCloses(final XMPPConnection connection) {

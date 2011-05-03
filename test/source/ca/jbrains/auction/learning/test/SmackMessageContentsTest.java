@@ -3,7 +3,7 @@ package ca.jbrains.auction.learning.test;
 import org.jivesoftware.smack.packet.Message;
 import org.junit.Test;
 
-import ca.jbrains.auction.smack.SmackMessageObjectMother;
+import ca.jbrains.auction.message.SmackMessage;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ public class SmackMessageContentsTest {
     public void correctWayToCreateAMessage() throws Exception {
         assertEquals(
                 "SOLVersion 1.1; Command: Bid; Price: 1098",
-                SmackMessageObjectMother.messageWithText(
+                SmackMessage.withBody(
                         "SOLVersion 1.1; Command: Bid; Price: 1098").getBody());
     }
 
