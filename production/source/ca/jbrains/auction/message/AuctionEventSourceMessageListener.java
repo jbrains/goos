@@ -5,6 +5,8 @@ import java.util.*;
 import org.jivesoftware.smack.*;
 import org.jivesoftware.smack.packet.Message;
 
+import com.google.common.base.Function;
+
 public class AuctionEventSourceMessageListener implements MessageListener {
 
     private final List<AuctionEventListener> listeners;
@@ -22,23 +24,40 @@ public class AuctionEventSourceMessageListener implements MessageListener {
         // Try migrating message-parsing behavior here
         final String body = message.getBody();
         if (Messages.joinAuctionBodyMatcher().matches(body)) {
-            for (AuctionEventListener each : listeners) {
-                each.handleJoinAuctionEvent();
-            }
+            broadcast(new Function<AuctionEventListener, Object>() {
+                @Override
+                public Object apply(AuctionEventListener input) {
+                    input.handleJoinAuctionEvent();
+                    return null;
+                }
+            });
             return;
         }
 
         // SMELL Duplicated loops
         final Object event = Messages.parse(message);
         if (event instanceof BiddingState) {
-            BiddingState biddingState = (BiddingState) event;
-            for (AuctionEventListener each : listeners) {
-                each.handleNewBiddingState(biddingState);
-            }
+            broadcast(new Function<AuctionEventListener, Object>() {
+                @Override
+                public Object apply(AuctionEventListener input) {
+                    input.handleNewBiddingState((BiddingState) event);
+                    return null;
+                }
+            });
         } else {
-            for (AuctionEventListener each : listeners) {
-                each.handleGenericEvent(event);
-            }
+            broadcast(new Function<AuctionEventListener, Object>() {
+                @Override
+                public Object apply(AuctionEventListener input) {
+                    input.handleGenericEvent(event);
+                    return null;
+                }
+            });
+        }
+    }
+
+    private void broadcast(final Function<AuctionEventListener, ?> announcement) {
+        for (AuctionEventListener each : listeners) {
+            announcement.apply(each);
         }
     }
 }
