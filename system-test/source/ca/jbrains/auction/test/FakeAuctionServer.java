@@ -62,7 +62,7 @@ public class FakeAuctionServer {
     }
 
     public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
-        messageListener.receivesAMessage(Messages.joinAuctionMatcher());
+        messageListener.receivesAMessage(Messages.joinAuctionBodyMatcher());
     }
 
     public void announceClosed() throws XMPPException {

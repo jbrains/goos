@@ -13,13 +13,19 @@ public class JoinAuctionMessageTest {
     public void create() throws Exception {
         final Message joinAuctionMessage = Messages.joinAuction();
 
-        assertThat(joinAuctionMessage.getBody(), equalTo("SOLVersion: 1.1; Command: JOIN;"));
+        assertThat(joinAuctionMessage.getBody(),
+                equalTo("SOLVersion: 1.1; Command: JOIN;"));
         assertThat(joinAuctionMessage.getTo(), is(nullValue(String.class)));
     }
 
     @Test
     public void matcherMatchesMessage() throws Exception {
         assertThat(Messages.joinAuction().getBody(),
-                Messages.joinAuctionMatcher());
+                Messages.joinAuctionBodyMatcher());
+    }
+
+    @Test
+    public void matcherRejectsEmptyMessage() throws Exception {
+        assertThat(new Message().getBody(), not(Messages.joinAuctionBodyMatcher()));
     }
 }

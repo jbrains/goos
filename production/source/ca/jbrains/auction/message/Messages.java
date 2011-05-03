@@ -14,8 +14,9 @@ public class Messages {
     }
 
     // SMELL? I'm not sure I like the Hamcrest Matcher here.
-    public static org.hamcrest.Matcher<? super String> joinAuctionMatcher() {
-        return is(anything());
+    public static org.hamcrest.Matcher<? super String> joinAuctionBodyMatcher() {
+        return both(containsString("SOLVersion: 1.1")).and(
+                containsString("Command: JOIN"));
     }
 
     public static String reportPriceMessageBody(int price, int increment,
