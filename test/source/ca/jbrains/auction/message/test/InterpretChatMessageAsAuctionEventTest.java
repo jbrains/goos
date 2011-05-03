@@ -1,7 +1,7 @@
 package ca.jbrains.auction.message.test;
 
 import org.jmock.*;
-import org.junit.*;
+import org.junit.Test;
 
 import ca.jbrains.auction.message.*;
 
